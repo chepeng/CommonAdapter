@@ -1,4 +1,5 @@
 # CommonAdapter
+部分参考1.[hongyangAndroid/base-adapter](https://github.com/hongyangAndroid/base-adapter)<br/>
 ## CommonAdapter<T>
 通用适配器，对于只有一种布局文件，且其适配器只用一次，就无需新建适配器类，可采用匿名类的方式
 实现bindData(CommonViewHolder holder, T t)方法即可。
