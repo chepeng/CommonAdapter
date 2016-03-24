@@ -1,8 +1,4 @@
 package com.frank.commonadapter;
-/**
- * 通用适配器，封装复用，静态ViewHolder
- * reference hongyangAndroid/base-adapter
- */
 
 import android.content.Context;
 import android.util.SparseArray;
@@ -14,28 +10,32 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
-
+/**
+ * <p>通用适配器，封装convertView复用，提供静态通用ViewHolder，
+ * 只需实现{@link CommonAdapter#bindData(CommonAdapter.CommonViewHolder, java.lang.Object)}<p/>
+ * reference: @git:hongyangAndroid/base-adapter
+ */
 public abstract class CommonAdapter<T> extends BaseAdapter {
     protected Context mContext;
-    protected List<T> mDatas;
+    protected List<T> mDataList;
     protected LayoutInflater mInflater;
-    private int layoutId;
+    private int mLayoutId;
 
-    public CommonAdapter(Context context, List<T> datas, int layoutId) {
+    public CommonAdapter(Context context, List<T> dataList, int layoutId) {
         this.mContext = context;
+        this.mDataList = dataList;
         mInflater = LayoutInflater.from(context);
-        this.mDatas = datas;
-        this.layoutId = layoutId;
+        this.mLayoutId = layoutId;
     }
 
     @Override
     public int getCount() {
-        return mDatas.size();
+        return mDataList.size();
     }
 
     @Override
     public T getItem(int position) {
-        return mDatas.get(position);
+        return mDataList.get(position);
     }
 
     @Override
@@ -45,20 +45,27 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        CommonViewHolder holder;
+        CommonViewHolder viewHolder;
         if (convertView == null) {
-            convertView = mInflater.inflate(layoutId, parent,
-                    false);
-            holder = new CommonViewHolder(mContext, parent, layoutId, convertView, position);
-            convertView.setTag(holder);
+            convertView = mInflater.inflate(mLayoutId, parent, false);
+            viewHolder = new CommonViewHolder(mContext, parent, mLayoutId, convertView, position);
+            convertView.setTag(viewHolder);
         } else {
-            holder = (CommonViewHolder) convertView.getTag();
+            viewHolder = (CommonViewHolder) convertView.getTag();
         }
-        bindData(holder, getItem(position));
+        bindData(viewHolder, getItem(position));
         return convertView;
     }
 
-    public abstract void bindData(CommonViewHolder holder, T t);
+    /**
+     * 绑定数据项到列表项
+     *
+     * @param viewHolder 列表项View的Holder，可通过{@link CommonViewHolder#getView(int)}
+     *                   获取当前列表项中的id为viewId的View对象，可通过{@link CommonViewHolder#getPosition()}
+     *                   获取当前列表项的position
+     * @param data       数据列表的数据实体，如果为 {@code null} 表明该列表项是非数据项/HeaderView
+     */
+    public abstract void bindData(CommonViewHolder viewHolder, T data);
 
     public static class CommonViewHolder {
 
@@ -92,6 +99,10 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 
         public int getLayoutId() {
             return mLayoutId;
+        }
+
+        public Context getContext() {
+            return mContext;
         }
 
         public CommonViewHolder setText(int viewId, String text) {

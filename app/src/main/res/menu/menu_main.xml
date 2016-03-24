@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:id="@+id/menu_multi_type"
+    android:title="多布局类型的ListView"
+    android:icon="@android:drawable/ic_menu_share"
+    android:showAsAction="ifRoom"
+    tools:ignore="AppCompatResource" />
+    <item android:id="@+id/menu_with_header"
+        android:title="带头布局的ListView"
+        android:icon="@android:drawable/ic_menu_help"
+        android:showAsAction="never"
+        tools:ignore="AppCompatResource" />
+</menu>

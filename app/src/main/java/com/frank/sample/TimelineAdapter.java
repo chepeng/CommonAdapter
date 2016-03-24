@@ -2,16 +2,16 @@ package com.frank.sample;
 
 import android.content.Context;
 
-import com.frank.commonadapter.MultiItemCommonAdapter;
-import com.frank.commonadapter.MultiItemTypeSupport;
+import com.frank.commonadapter.MultiTypeCommonAdapter;
+import com.frank.commonadapter.MultiTypeSupport;
 import com.frank.commonadapter.R;
 import com.frank.sample.bean.TimelineBean;
 
 import java.util.List;
 
-public class TimelineAdapter extends MultiItemCommonAdapter<TimelineBean> {
+public class TimelineAdapter extends MultiTypeCommonAdapter<TimelineBean> {
     public TimelineAdapter(Context context, List<TimelineBean> datas) {
-        super(context, datas, new MultiItemTypeSupport<TimelineBean>() {
+        super(context, datas, new MultiTypeSupport<TimelineBean>() {
             @Override
             public int getLayoutId(int position, TimelineBean timelineBean) {
                 switch (timelineBean.getEventType()) {
