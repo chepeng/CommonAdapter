@@ -16,19 +16,17 @@
         
 - MultiTypeCommonAdapter<T>
 多类型布局适配器<br/>
-建议：先将所有类型数据统一为一个实体类：{所有布局类型的类型标志常量，表明当前类型的变量，数据对象}
+建议：先将所有类型数据统一为一个实体类：{所有布局类型的类型标志常量，表明当前类型的变量，数据对象}，
 如：<br/>
-
-    public static final String TYPE_GAME = "game";
-    public static final String TYPE_VIDEO = "video";
-    private String eventType;
-    private GameBean gameBean;
-    private VideoBean videoBean;
-    
-<p>然后实现3个方法：<br/>
+        public static final String TYPE_GAME = "game";<br/>
+        public static final String TYPE_VIDEO = "video";<br/>
+        private String eventType;<br/>
+        private GameBean gameBean;<br/>
+        private VideoBean videoBean;<br/>
+然后实现3个方法：<br/>
 ①getViewTypeCount()，返回布局类型数量<br/>
 ②getItemViewType(int position, T data)，返回0~ getViewTypeCount()-1的整数(可由position或data.getType()决定具体返回值）<br/>
-③getLayoutId(int position, T data)，返回布局文件id(可由position或data.getType()决定具体返回值）<p/>
+③getLayoutId(int position, T data)，返回布局文件id(可由position或data.getType()决定具体返回值）
 - WithHeaderAdapter<T>
 带头布局列表项的通用适配器<br/>
 需实现{@link CommonAdapter#bindData(CommonViewHolder, Object)}方法,
