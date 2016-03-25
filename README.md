@@ -15,6 +15,10 @@
         };
         listView.setAdapter(gameBeanAdapter);
 ```
+> @param viewHolder  列表项View的Holder，可通过`CommonViewHolder#getView(int)`获取当前列表项中id为viewId的View对象，
+可通过`CommonViewHolder#getPosition()`获取当前列表项的position.<br/>
+> @param data  数据列表中该位置的数据实体
+     
 ## MultiTypeCommonAdapter<T>
 多类型布局适配器。简化多种布局文件的View操作。
 
