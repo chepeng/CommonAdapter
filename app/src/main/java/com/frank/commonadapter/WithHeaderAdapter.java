@@ -7,10 +7,18 @@ import android.view.ViewGroup;
 import java.util.List;
 
 /**
- * 带头布局列表项的ListView通用适配器<br/>
+ * <p>带头布局列表项的ListView通用适配器，建议使用{@link android.widget.ListView#addHeaderView(View)}
+ * 替代，而不是使用该适配器<p/>
  * 需实现{@link CommonAdapter#bindData(CommonViewHolder, Object)}方法,
- * 如果Object为 {@code null} 表明该列表项是HeaderView
- *
+ * 如果data为 {@code null} 表明该列表项是HeaderView<br/>
+ * 建议：<code>bindData<code/>方法的代码格式为：<br/>
+ * <pre class="prettyprint">
+ *     if(data == null) {
+ *         //初始化HeaderView...
+ *         return;
+ *     }
+ *     //正常数据绑定...
+ * </pre>
  * @param <T> 数据实体类型
  */
 public abstract class WithHeaderAdapter<T> extends CommonAdapter<T> {

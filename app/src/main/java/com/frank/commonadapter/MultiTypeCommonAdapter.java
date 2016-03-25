@@ -7,21 +7,22 @@ import android.view.ViewGroup;
 import java.util.List;
 
 /**
- * 多类型布局适配器<br/>
- * 建议：先将所有类型数据统一为一个实体类：{所有布局类型的类型标志常量，表明当前类型的变量，数据对象}
+ * <p>多类型布局适配器。简化多种布局文件的View操作。</p>
+ * <p>建议：将所有类型数据统一为一个实体类：{所有布局类型的类型标志常量，表明当前类型的变量，数据对象}</p>
  * 如：<br/>
- * <code>
- * public static final String TYPE_GAME = "game";<br/>
- * public static final String TYPE_VIDEO = "video";<br/><br/>
- * private String eventType;<br/>
- * private GameBean gameBean;<br/>
- * private VideoBean videoBean;<br/>
- * </code>
- * <p>然后实现3个方法：<br/>
- * ①getViewTypeCount()，返回布局类型数量<br/>
- * ②getItemViewType(int position, T data)，返回0~ getViewTypeCount()-1的整数(可由position或data.getType()决定具体返回值）<br/>
- * ③getLayoutId(int position, T data)，返回布局文件id(可由position或data.getType()决定具体返回值）<p/>
- *
+ * <pre class="prettyprint">
+ * public static final String TYPE_GAME = "game";
+ * public static final String TYPE_VIDEO = "video";
+ * private String eventType;
+ * private GameBean gameBean;
+ * private VideoBean videoBean;
+ * </pre>
+ * 利用组装好的实体类List并实现3个方法：
+ * <ul>
+ * <li>getViewTypeCount()，返回布局类型个数</li>
+ * <li>getItemViewType(int position, T data)，返回0~ getViewTypeCount()-1的整数(可由position或data.getType()决定具体返回值）</li>
+ * <li>getLayoutId(int position, T data)，返回布局文件id(可由position或data.getType()决定具体返回值）</li>
+ * </ul>
  * @param <T> 数据实体类型
  */
 public abstract class MultiTypeCommonAdapter<T> extends CommonAdapter<T> {

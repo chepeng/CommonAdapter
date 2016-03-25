@@ -1,7 +1,7 @@
 package com.frank.sample;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ListView;
@@ -32,6 +32,7 @@ public class WithHeaderActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
         listView = (ListView) findViewById(R.id.lv_1);
         gameBeanAdapter = new WithHeaderAdapter<GameBean>(this, R.layout.listitem_header,
                 R.layout.listitem_game, gameBeanList) {
@@ -40,13 +41,14 @@ public class WithHeaderActivity extends AppCompatActivity {
                 if (data == null) {
                     viewHolder.setImageResource(R.id.iv_header, android.R.drawable.ic_menu_camera);
                     viewHolder.setText(R.id.tv_header, "Header View!");
-                } else {
-                    viewHolder.setImageResource(R.id.iv_logo, Integer.valueOf(data.getImg_url()));
-                    viewHolder.setText(R.id.tv_name, data.getName());
+                    return;
                 }
+                viewHolder.setImageResource(R.id.iv_logo, Integer.valueOf(data.getImg_url()));
+                viewHolder.setText(R.id.tv_name, data.getName());
             }
         };
         listView.setAdapter(gameBeanAdapter);
+
         getData();
     }
 

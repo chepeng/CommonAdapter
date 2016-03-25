@@ -31,15 +31,17 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle(getTitle());
         setSupportActionBar(toolbar);
         toolbar.setOnMenuItemClickListener(onMenuItemClick);
+
         listView = (ListView) findViewById(R.id.lv_1);
         gameBeanAdapter = new CommonAdapter<GameBean>(this, gameBeanList, R.layout.listitem_game) {
             @Override
-            public void bindData(CommonViewHolder holder, GameBean gameBean) {
-                holder.setImageResource(R.id.iv_logo, Integer.valueOf(gameBean.getImg_url()));
-                holder.setText(R.id.tv_name, gameBean.getName());
+            public void bindData(CommonViewHolder viewHolder, GameBean data) {
+                viewHolder.setImageResource(R.id.iv_logo, Integer.valueOf(data.getImg_url()));
+                viewHolder.setText(R.id.tv_name, data.getName());
             }
         };
         listView.setAdapter(gameBeanAdapter);
+
         getData();
     }
 
