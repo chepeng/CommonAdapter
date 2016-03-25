@@ -18,7 +18,7 @@
 ## MultiTypeCommonAdapter<T>
 多类型布局适配器。简化多种布局文件的View操作。
 
-> 建议：将所有列表项数据统一，以便通过对象辨别列表项类型：{所有布局类型的类型标志常量，表明当前类型的变量，数据对象}
+> 建议：将所有列表项数据统一，以便通过对象辨别列表项类型：</br>{所有布局类型的类型标志常量，表明当前类型的变量，数据对象}
 
 如：
 ```java
@@ -31,8 +31,9 @@
 ```
 然后实现3个方法：
 - `getViewTypeCount()`，返回布局类型数量
-- `getItemViewType(int position, T data)`，返回[0,getViewTypeCount()-1]之间的整数(可由position或data.getType()决定具体返回值）
+- `getItemViewType(int position, T data)`，返回0~getViewTypeCount()-1之间的整数(可由position或data.getType()决定具体返回值）
 - `getLayoutId(int position, T data)`，返回布局文件id(可由position或data.getType()决定具体返回值）
+
 ## WithHeaderAdapter<T>
 第一个列表项为HeaderView的通用适配器。建议使用`ListView#addHeaderView(View)`替代，而不是使用该适配器。
 需实现`CommonAdapter#bindData(CommonViewHolder, Object)`方法,
