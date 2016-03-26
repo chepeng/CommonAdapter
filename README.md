@@ -22,26 +22,32 @@
 ## MultiTypeCommonAdapter<T>
 多类型布局适配器。简化多种布局文件的View操作。
 
-> 建议：将所有列表项数据统一，以便通过对象辨别列表项类型：</br>{所有布局类型的类型标志常量，表明当前类型的变量，数据对象}
+> 建议：将所有列表项数据规范为一种类型，以便通过对象辨别列表项类型：</br>{所有布局类型的类型标志常量，表明当前类型的变量，数据对象}
 
 如：
 ```java
+public class TimelineBean {
+
     public static final String TYPE_GAME = "game";
     public static final String TYPE_VIDEO = "video";
 
     private String eventType;
+    
     private GameBean gameBean;
     private VideoBean videoBean;
+    
+    //Getter/Setter...
+}
 ```
-然后实现3个方法：
+然后实现`MultiTypeSupport<T>`接口的3个方法：
 - `getViewTypeCount()`，返回布局类型数量
 - `getItemViewType(int position, T data)`，返回0~getViewTypeCount()-1之间的整数(可由position或data.getType()决定具体返回值）
 - `getLayoutId(int position, T data)`，返回布局文件id(可由position或data.getType()决定具体返回值）
 
+最后，在`bindData(CommonViewHolder viewHolder, T data)`方法中，通过`switch (holder.getLayoutId()){}`可根据不同布局文件id进行不同的数据绑定。
 ## WithHeaderAdapter<T>
-第一个列表项为HeaderView的通用适配器。建议使用`ListView#addHeaderView(View)`替代，而不是使用该适配器。
-需实现`CommonAdapter#bindData(CommonViewHolder, Object)`方法,
-如果data为`null`表明该列表项是HeaderView
+第一个列表项为HeaderView的通用适配器。建议使用`ListView#addHeaderView(View)`替代，而不是使用该适配器。<br/>
+需实现`CommonAdapter#bindData(CommonViewHolder, Object)`方法,如果data为`null`表明该列表项是HeaderView。
 
 > 建议：`bindData(CommonViewHolder, Object)`方法的代码格式为：
 
