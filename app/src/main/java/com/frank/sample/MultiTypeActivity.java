@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.frank.commonadapter.MultiTypeCommonAdapter;
@@ -35,8 +36,15 @@ public class MultiTypeActivity extends AppCompatActivity {
             }
         });
         listView = (ListView) findViewById(R.id.lv_1);
-        timelineBeanAdapter = new TimelineAdapter(this, timelineBeanList);
+        timelineBeanAdapter = new MultiTypeAdapter(this, timelineBeanList);
         listView.setAdapter(timelineBeanAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                timelineBeanList.remove(position);
+                timelineBeanAdapter.notifyDataSetChanged();
+            }
+        });
         getData();
     }
 

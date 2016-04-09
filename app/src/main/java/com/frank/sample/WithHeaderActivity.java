@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.frank.commonadapter.R;
@@ -37,7 +38,7 @@ public class WithHeaderActivity extends AppCompatActivity {
         gameBeanAdapter = new WithHeaderAdapter<GameBean>(this, R.layout.listitem_header,
                 R.layout.listitem_game, gameBeanList) {
             @Override
-            public void bindData(CommonViewHolder viewHolder, GameBean data) {
+            public void onBindViewHolder(CommonViewHolder viewHolder, GameBean data) {
                 if (data == null) {
                     viewHolder.setImageResource(R.id.iv_header, android.R.drawable.ic_menu_camera);
                     viewHolder.setText(R.id.tv_header, "Header View!");
@@ -48,7 +49,16 @@ public class WithHeaderActivity extends AppCompatActivity {
             }
         };
         listView.setAdapter(gameBeanAdapter);
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    return;
+                }
+                gameBeanList.remove(position - 1);
+                gameBeanAdapter.notifyDataSetChanged();
+            }
+        });
         getData();
     }
 

@@ -7,7 +7,7 @@
         listView = (ListView) findViewById(R.id.lv_1);
         gameBeanAdapter = new CommonAdapter<GameBean>(this, gameBeanList, R.layout.listitem_game) {
             @Override
-            public void bindData(CommonViewHolder holder, GameBean gameBean) {
+            public void onBindViewHolder(CommonViewHolder holder, GameBean gameBean) {
                 holder.setImageResource(R.id.iv_logo, Integer.valueOf(gameBean.getImg_url()));
                 holder.setText(R.id.tv_name, gameBean.getName());
             }
@@ -29,6 +29,6 @@
 ③getLayoutId(int position, T data)，返回布局文件id(可由position或data.getType()决定具体返回值）
 - WithHeaderAdapter<T>
 带头布局列表项的通用适配器<br/>
-需实现{@link CommonAdapter#bindData(CommonViewHolder, Object)}方法,
+需实现{@link CommonAdapter#onBindViewHolder(CommonViewHolder, Object)}方法,
 如果Object为 {@code null} 表明该列表项是HeaderView
  

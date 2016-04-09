@@ -9,11 +9,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
+
 /**
- * <p>通用适配器，封装convertView复用，提供静态通用ViewHolder，
- * 只需实现{@link CommonAdapter#bindData(CommonAdapter.CommonViewHolder, java.lang.Object)}<p/>
- * reference: @git:hongyangAndroid/base-adapter
+ * <p>通用适配器。封装convertView复用、findViewById，提供静态通用ViewHolder，
+ * 只需实现{@link CommonAdapter#onBindViewHolder(CommonAdapter.CommonViewHolder, java.lang.Object)}<p/>
  */
 public abstract class CommonAdapter<T> extends BaseAdapter {
     protected Context mContext;
@@ -48,13 +49,26 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
         CommonViewHolder viewHolder;
         if (convertView == null) {
             convertView = mInflater.inflate(mLayoutId, parent, false);
-            viewHolder = new CommonViewHolder(mContext, parent, mLayoutId, convertView, position);
+            //Log.e("shang", "getView inflate:" + position+"                          "+convertView);
+            viewHolder = new CommonViewHolder(mContext, mLayoutId, convertView, position);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (CommonViewHolder) convertView.getTag();
         }
-        bindData(viewHolder, getItem(position));
+        onBindViewHolder(viewHolder, getItem(position));
         return convertView;
+    }
+
+    public List<T> getDataList() {
+        return mDataList;
+    }
+
+    public void setDataList(List<T> dataList) {
+        List<T> result = new ArrayList<T>(dataList.size());
+        for (T item : dataList) {
+            result.add(item);
+        }
+        this.mDataList = result;
     }
 
     /**
@@ -65,7 +79,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
      *                   获取当前列表项的position
      * @param data       数据列表的数据实体，如果为 {@code null} 表明该列表项是非数据项/HeaderView
      */
-    public abstract void bindData(CommonViewHolder viewHolder, T data);
+    public abstract void onBindViewHolder(CommonViewHolder viewHolder, T data);
 
     public static class CommonViewHolder {
 
@@ -75,12 +89,12 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
         private Context mContext;
         private int mLayoutId;
 
-        public CommonViewHolder(Context context, ViewGroup parent, int layoutId, View convertView,
+        public CommonViewHolder(Context context, int layoutId, View convertView,
                                 int position) {
             mContext = context;
             mLayoutId = layoutId;
             this.mPosition = position;
-            this.mViews = new SparseArray<View>();
+            this.mViews = new SparseArray<>();
             mConvertView = convertView;
         }
 
@@ -88,6 +102,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
             View view = mViews.get(viewId);
             if (view == null) {
                 view = mConvertView.findViewById(viewId);
+                //Log.e("shang", "findViewById:"+viewId+"                          "+view);
                 mViews.put(viewId, view);
             }
             return (T) view;

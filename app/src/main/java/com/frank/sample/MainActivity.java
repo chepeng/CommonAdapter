@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.frank.commonadapter.CommonAdapter;
@@ -35,13 +38,19 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.lv_1);
         gameBeanAdapter = new CommonAdapter<GameBean>(this, gameBeanList, R.layout.listitem_game) {
             @Override
-            public void bindData(CommonViewHolder viewHolder, GameBean data) {
+            public void onBindViewHolder(CommonViewHolder viewHolder, GameBean data) {
                 viewHolder.setImageResource(R.id.iv_logo, Integer.valueOf(data.getImg_url()));
                 viewHolder.setText(R.id.tv_name, data.getName());
             }
         };
         listView.setAdapter(gameBeanAdapter);
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                gameBeanList.remove(position);
+                gameBeanAdapter.notifyDataSetChanged();
+            }
+        });
         getData();
     }
 
@@ -72,6 +81,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.menu_with_header:
                     Intent intent2 = new Intent(MainActivity.this, WithHeaderActivity.class);
                     MainActivity.this.startActivity(intent2);
+                    break;
+                case R.id.menu_expandable:
+                    Intent intent3 = new Intent(MainActivity.this, ExpandableListActivity.class);
+                    MainActivity.this.startActivity(intent3);
                     break;
                 default:
                     break;

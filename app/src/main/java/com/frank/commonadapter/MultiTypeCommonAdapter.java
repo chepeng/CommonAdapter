@@ -23,49 +23,44 @@ import java.util.List;
  * <li>getItemViewType(int position, T data)，返回0~ getViewTypeCount()-1的整数(可由position或data.getType()决定具体返回值）</li>
  * <li>getLayoutId(int position, T data)，返回布局文件id(可由position或data.getType()决定具体返回值）</li>
  * </ul>
+ *
  * @param <T> 数据实体类型
  */
 public abstract class MultiTypeCommonAdapter<T> extends CommonAdapter<T> {
 
-    protected MultiTypeSupport<T> mMultiTypeSupport;
-
-    public MultiTypeCommonAdapter(Context context, List<T> dataList, MultiTypeSupport<T> multiTypeSupport) {
+    public MultiTypeCommonAdapter(Context context, List<T> dataList) {
         super(context, dataList, -1);
-        mMultiTypeSupport = multiTypeSupport;
     }
 
     @Override
     public int getViewTypeCount() {
-        if (mMultiTypeSupport != null) {
-            return mMultiTypeSupport.getViewTypeCount();
-        }
-        return super.getViewTypeCount();
+        return getItemViewTypeCount();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (mMultiTypeSupport != null) {
-            return mMultiTypeSupport.getItemViewType(position, mDataList.get(position));
-        }
-        return super.getItemViewType(position);
+        return getItemViewType(position, mDataList.get(position));
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (mMultiTypeSupport == null)
-            return super.getView(position, convertView, parent);
-        int layoutId = mMultiTypeSupport.getLayoutId(position, getItem(position));
+        int layoutId = getLayoutId(position, getItem(position));
         CommonViewHolder viewHolder;
         if (convertView == null) {
+            //Log.e("shang", "getView->inflate:" + position);
             convertView = mInflater.inflate(layoutId, parent, false);
-            viewHolder = new CommonViewHolder(mContext, parent, layoutId, convertView, position);
+            viewHolder = new CommonViewHolder(mContext, layoutId, convertView, position);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (CommonViewHolder) convertView.getTag();
-            viewHolder.mPosition = position;
         }
-        bindData(viewHolder, getItem(position));
+        onBindViewHolder(viewHolder, getItem(position));
         return convertView;
     }
 
+    public abstract int getLayoutId(int position, T data);
+
+    public abstract int getItemViewTypeCount();
+
+    public abstract int getItemViewType(int position, T data);
 }
