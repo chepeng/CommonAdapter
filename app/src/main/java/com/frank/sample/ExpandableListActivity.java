@@ -123,7 +123,8 @@ public class ExpandableListActivity extends AppCompatActivity {
 
             @Override
             public Object getChild(int groupPosition, int childPosition, GameTypeBean groupData) {
-                return groupData.getGameBeanList().get(childPosition);
+                return groupData.getGameBeanList();
+                //return groupData.getGameBeanList().get(childPosition);
             }
         };
         elv_main.setAdapter(gameTypeBeanAdapter);

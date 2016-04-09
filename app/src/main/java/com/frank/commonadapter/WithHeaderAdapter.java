@@ -9,9 +9,9 @@ import java.util.List;
 /**
  * <p>带头布局列表项的ListView通用适配器，建议使用{@link android.widget.ListView#addHeaderView(View)}
  * 替代，而不是使用该适配器<p/>
- * 需实现{@link CommonAdapter#onBindViewHolder(CommonViewHolder, Object)}方法,
+ * 只需实现{@link CommonAdapter#onBindViewHolder(CommonViewHolder, Object)}方法,
  * 如果data为 {@code null} 表明该列表项是HeaderView<br/>
- * 建议：<code>onBindViewHolder<code/>方法的代码格式为：<br/>
+ * 建议：<code>onBindViewHolder<code/>方法的内部代码格式为：<br/>
  * <pre class="prettyprint">
  * if(data == null) {
  * //初始化HeaderView...

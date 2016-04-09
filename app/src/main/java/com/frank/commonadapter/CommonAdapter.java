@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>通用适配器。封装convertView复用、findViewById，提供静态通用ViewHolder，
- * 只需实现{@link CommonAdapter#onBindViewHolder(CommonAdapter.CommonViewHolder, java.lang.Object)}<p/>
+ * <p>通用适配器。封装了convertView复用及findViewById()，提供静态通用ViewHolder，
+ * 只需实现{@link CommonAdapter#onBindViewHolder(CommonAdapter.CommonViewHolder, java.lang.Object)}方法<p/>
  */
 public abstract class CommonAdapter<T> extends BaseAdapter {
     protected Context mContext;
@@ -75,9 +75,9 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
      * 绑定数据项到列表项
      *
      * @param viewHolder 列表项View的Holder，可通过{@link CommonViewHolder#getView(int)}
-     *                   获取当前列表项中的id为viewId的View对象，可通过{@link CommonViewHolder#getPosition()}
+     *                   获取当前列表项中ID为viewId的View对象，可通过{@link CommonViewHolder#getPosition()}
      *                   获取当前列表项的position
-     * @param data       数据列表的数据实体，如果为 {@code null} 表明该列表项是非数据项/HeaderView
+     * @param data       数据列表的数据实体，如果为 {@code null} 表明该列表项是非数据项(HeaderView)
      */
     public abstract void onBindViewHolder(CommonViewHolder viewHolder, T data);
 
