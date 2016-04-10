@@ -2,7 +2,7 @@
 包括：
 * 通用适配器`CommonAdapter<T>`
 * 多布局类型的适配器`MultiTypeCommonAdapter<T>`
-* 第一个列表项为HeaderView的适配器`WithHeaderAdapter<T>`
+* 第一个列表项为HeaderView的适配器（不建议使用）`WithHeaderAdapter<T>`
 * ExpandableListView的通用适配器`ExpandableListCommonAdapter<T>`
 
 ## CommonAdapter<T>
@@ -46,7 +46,7 @@ public class TimelineBean {
     //Getter/Setter...
 }
 ```
-子类需要实现4个方法：
+子类需实现4个方法：
 * `getItemViewTypeCount()`，返回布局类型数量
 * `getItemViewType(int position, T data)`，返回0~getViewTypeCount()-1之间的整数(可由position或data.getType()决定具体返回值）
 * `getLayoutId(int position, T data)`，返回布局文件id(可由position或data.getType()决定具体返回值）
@@ -133,3 +133,5 @@ ExpandableListView的通用适配器。封装了convertView复用及findViewById
         }
     }
 ```
+## 感谢
+![hongyangAndroid/base-adapter](https://github.com/hongyangAndroid/base-adapter)
