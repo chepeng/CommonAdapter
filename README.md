@@ -134,4 +134,4 @@ ExpandableListView的通用适配器。封装了convertView复用及findViewById
     }
 ```
 ## 感谢
-![hongyangAndroid/base-adapter](https://github.com/hongyangAndroid/base-adapter)
+[hongyangAndroid/base-adapter](https://github.com/hongyangAndroid/base-adapter)
