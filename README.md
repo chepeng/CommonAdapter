@@ -8,7 +8,7 @@
 ## CommonAdapter<T>
 通用适配器。封装了convertView复用及findViewById()，提供静态通用ViewHolder。对于只有一种布局文件，且其适配器只用一次，就无需新建适配器类，可采用匿名类的方式
 实现`onBindViewHolder(CommonViewHolder viewHolder, T data)`方法即可。
-例子：
+例子（详细示例请详见源码的sample）：
 ```java
         listView = (ListView) findViewById(R.id.lv_1);
         gameBeanAdapter = new CommonAdapter<GameBean>(this, gameBeanList, R.layout.listitem_game) {
@@ -51,7 +51,7 @@ public class TimelineBean {
 * `getItemViewType(int position, T data)`，返回0~getViewTypeCount()-1之间的整数(可由position或data.getType()决定具体返回值）
 * `getLayoutId(int position, T data)`，返回布局文件id(可由position或data.getType()决定具体返回值）
 * `onBindViewHolder(CommonViewHolder viewHolder, T data)`
-在`onBindViewHolder(CommonViewHolder viewHolder, T data)`方法中，通过`switch (holder.getLayoutId()){}`可根据不同布局文件id进行不同的数据绑定：
+在`onBindViewHolder(CommonViewHolder viewHolder, T data)`方法中，通过`switch (holder.getLayoutId()){}`可根据不同布局文件id进行不同的数据绑定（详细示例请详见源码的sample）：
 ```java
     @Override
     public int getLayoutId(int position, TimelineBean data) {
@@ -101,7 +101,7 @@ public class TimelineBean {
 第一个列表项为HeaderView的通用适配器。建议使用`ListView#addHeaderView(View)`替代，而不是使用该适配器。<br/>
 只需实现`onBindViewHolder(CommonViewHolder viewHolder, T data)`方法,如果data为`null`表明该列表项是HeaderView。
 
-> 建议：`onBindViewHolder(CommonViewHolder viewHolder, T data)`方法的代码格式为：
+> 建议：`onBindViewHolder(CommonViewHolder viewHolder, T data)`方法的代码格式为（详细示例请详见源码的sample）：
 
 ```java
         if(data == null) {
@@ -121,7 +121,7 @@ ExpandableListView的通用适配器。封装了convertView复用及findViewById
 
 三个方法。
 在`onBindViewHolder(int groupPosition, int childPosition, CommonAdapter.CommonViewHolder viewHolder, T data, boolean isGroup)`方法
-中，可通过isGroup判断是Group还是Child：
+中，可通过isGroup判断是Group还是Child（详细示例请详见源码的sample）：
 ```java
     public void onBindViewHolder(int groupPosition, int childPosition, CommonAdapter.CommonViewHolder viewHolder, GameTypeBean data, boolean isGroup) {
         if (isGroup) {
