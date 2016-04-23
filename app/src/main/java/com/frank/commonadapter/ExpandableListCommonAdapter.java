@@ -1,6 +1,7 @@
 package com.frank.commonadapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,7 @@ import java.util.List;
  * <p>{@link android.widget.ExpandableListView}的通用适配器。封装了convertView复用及findViewById()，
  * 子类只须实现：
  * <ol>
- * <li>{@link ExpandableListCommonAdapter#onBindViewHolder(int, int, CommonAdapter.CommonViewHolder, Object, boolean)}</li>
+ * <li>{@link ExpandableListCommonAdapter#onBindGroupViewHolder(int, CommonAdapter.CommonViewHolder, Object)}</li>
  * <li>{@link ExpandableListCommonAdapter#getChildrenCount(int, Object)}</li>
  * <li>{@link ExpandableListCommonAdapter#getChild(int, int, Object)}</li>
  * </ol>
@@ -89,13 +90,13 @@ public abstract class ExpandableListCommonAdapter<T> extends BaseExpandableListA
         CommonAdapter.CommonViewHolder viewHolder;
         if (convertView == null) {
             convertView = mInflater.inflate(mGroupLayoutId, parent, false);
-            //Log.e("shang", "getGroupView inflate:" + groupPosition+"                          "+convertView);
+            Log.e("shang", "getGroupView inflate:" + groupPosition+"                          "+convertView);
             viewHolder = new CommonAdapter.CommonViewHolder(mContext, mGroupLayoutId, convertView, groupPosition);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (CommonAdapter.CommonViewHolder) convertView.getTag();
         }
-        onBindViewHolder(groupPosition, -1, viewHolder, getGroup(groupPosition), true);
+        onBindGroupViewHolder(groupPosition, viewHolder, getGroup(groupPosition));
         return convertView;
     }
 
@@ -104,13 +105,13 @@ public abstract class ExpandableListCommonAdapter<T> extends BaseExpandableListA
         CommonAdapter.CommonViewHolder viewHolder;
         if (convertView == null) {
             convertView = mInflater.inflate(mChildLayoutId, parent, false);
-            //Log.e("shang", "getChildView inflate:" + groupPosition+"-"+childPosition+"                          "+convertView);
+            Log.e("shang", "getChildView inflate:" + groupPosition+"-"+childPosition+"                          "+convertView);
             viewHolder = new CommonAdapter.CommonViewHolder(mContext, mChildLayoutId, convertView, groupPosition);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (CommonAdapter.CommonViewHolder) convertView.getTag();
         }
-        onBindViewHolder(groupPosition, childPosition, viewHolder, getGroup(groupPosition), false);
+        onBindChildViewHolder(groupPosition, childPosition, viewHolder, getGroup(groupPosition));
         return convertView;
     }
 
@@ -120,39 +121,36 @@ public abstract class ExpandableListCommonAdapter<T> extends BaseExpandableListA
     }
 
     /**
-     * 绑定ViewHolder，isGroup如果为{@code true}，表明是Group，否则为{@code false}。
-     * 建议代码格式为：
-     * <pre class="prettyprint">
-     *     if (isGroup) {
-     *         //绑定组的数据...
-     *         viewHolder.setText(R.id.tv_game_type, data.getName());
-     *     } else {
-     *         //绑定子项的数据...
-     *         viewHolder.setText(R.id.tv_game_name, data.getGameBeanList().get(childPosition).getName());
-     *     }
-     * </pre>
-     * @param groupPosition
-     * @param childPosition
-     * @param viewHolder
-     * @param data
-     * @param isGroup
+     * 绑定Group项的ViewHolder
+     * @param groupPosition 当前组的position
+     * @param viewHolder ViewHolder
+     * @param groupData 所在组的数据实体
      */
-    public abstract void onBindViewHolder(int groupPosition, int childPosition, CommonAdapter.CommonViewHolder viewHolder, T data, boolean isGroup);
+    public abstract void onBindGroupViewHolder(int groupPosition, CommonAdapter.CommonViewHolder viewHolder, T groupData);
+
+    /**
+     * 绑定子项的ViewHolder
+     * @param groupPosition 所在组的position
+     * @param childPosition 当前子项的position
+     * @param viewHolder ViewHolder
+     * @param groupData 所在组的数据实体
+     */
+    public abstract void onBindChildViewHolder(int groupPosition, int childPosition, CommonAdapter.CommonViewHolder viewHolder, T groupData);
 
     /**
      * 返回groupPosition组的子项数量
      * @param groupPosition 组的position
      * @param groupData 所在组的数据实体
-     * @return
+     * @return groupPosition组的子项数量
      */
     public abstract int getChildrenCount(int groupPosition, T groupData);
 
     /**
-     * 最好正确实现该方法，返回该子项的数据实体
+     * 建议正确实现该方法，返回该子项的数据实体
      * @param groupPosition 所在组的position
      * @param childPosition 该子项的position
      * @param groupData 所在组的数据实体
-     * @return
+     * @return 该子项的数据实体
      */
     public abstract Object getChild(int groupPosition, int childPosition, T groupData);
 

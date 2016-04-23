@@ -1,25 +1,17 @@
 package com.frank.commonadapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
 
 /**
- * <p>带头布局列表项的ListView通用适配器，建议使用{@link android.widget.ListView#addHeaderView(View)}
+ * <p>带一个头布局列表项的ListView通用适配器，建议使用{@link android.widget.ListView#addHeaderView(View)}
  * 替代，而不是使用该适配器<p/>
- * 只需实现{@link CommonAdapter#onBindViewHolder(CommonViewHolder, Object)}方法,
- * 如果data为 {@code null} 表明该列表项是HeaderView<br/>
- * 建议：<code>onBindViewHolder<code/>方法的内部代码格式为：<br/>
- * <pre class="prettyprint">
- * if(data == null) {
- * //初始化HeaderView...
- * return;
- * }
- * //正常数据绑定...
- * </pre>
- *
+ * 需实现{@link WithHeaderAdapter#onBindHeader(CommonViewHolder)}方法初始化Header,
+ * 实现{@link WithHeaderAdapter#onBindViewHolder(CommonViewHolder, Object)}方法绑定数据。
  * @param <T> 数据实体类型
  */
 public abstract class WithHeaderAdapter<T> extends CommonAdapter<T> {
@@ -70,16 +62,21 @@ public abstract class WithHeaderAdapter<T> extends CommonAdapter<T> {
         int layoutId = position == 0 ? mHeaderLayoutId : mItemLayoutId;
         CommonViewHolder viewHolder;
         if (convertView == null) {
-            //Log.e("shang", "getView: inflate" + position);
+            Log.e("shang", "getView inflate:" + position+"                          "+convertView);
             convertView = mInflater.inflate(layoutId, parent, false);
             viewHolder = new CommonViewHolder(mContext, layoutId, convertView, position);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (CommonViewHolder) convertView.getTag();
-            viewHolder.mPosition = position;
         }
-        onBindViewHolder(viewHolder, getItem(position));
+        if (position == 0) {
+            onBindHeader(viewHolder);
+        } else {
+            onBindViewHolder(viewHolder, getItem(position));
+        }
         return convertView;
     }
+
+    public abstract void onBindHeader(CommonViewHolder viewHolder);
 
 }

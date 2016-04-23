@@ -89,28 +89,30 @@ public class ExpandableListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expandable_list);
         elv_main = (ExpandableListView) findViewById(R.id.elv_main);
-        gameTypeBeanAdapter = new ExpandableListCommonAdapter<GameTypeBean>(this, gameTypeBeanList, R.layout.listitem_game_group, R.layout.listitem_grid) {
+        gameTypeBeanAdapter = new ExpandableListCommonAdapter<GameTypeBean>(this, gameTypeBeanList, R.layout.listitem_game_group, R.layout.listitem_game_child) {
+
             @Override
-            public void onBindViewHolder(int groupPosition, int childPosition, CommonAdapter.CommonViewHolder viewHolder, GameTypeBean data, boolean isGroup) {
-                if (isGroup) {
-                    viewHolder.setText(R.id.tv_game_type, data.getName());
-                } else {
-                    List<GameBean> gameBeanList = data.getGameBeanList();
-                    ExpandedGridView gridView = viewHolder.getView(R.id.gv_game);
-                    CommonAdapter adapter = (CommonAdapter) gridView.getAdapter();
-                    if (adapter == null) {
-                        gridView.setAdapter(new CommonAdapter<GameBean>(ExpandableListActivity.this, gameBeanList, R.layout.grid_item_game) {
-                            @Override
-                            public void onBindViewHolder(CommonViewHolder viewHolder, GameBean data) {
-                                ImageView iv = viewHolder.getView(R.id.iv_game);
-                                Glide.with(ExpandableListActivity.this).load(data.getImg_url()).centerCrop().into(iv);
-                            }
-                        });
-                    } else {
-                        if (gameBeanList != null) {
-                            adapter.setDataList(gameBeanList);
-                            adapter.notifyDataSetChanged();
+            public void onBindGroupViewHolder(int groupPosition, CommonAdapter.CommonViewHolder viewHolder, GameTypeBean groupData) {
+                viewHolder.setText(R.id.tv_game_type, groupData.getName());
+            }
+
+            @Override
+            public void onBindChildViewHolder(int groupPosition, int childPosition, CommonAdapter.CommonViewHolder viewHolder, GameTypeBean groupData) {
+                List<GameBean> gameBeanList = groupData.getGameBeanList();
+                ExpandedGridView gridView = viewHolder.getView(R.id.gv_game);
+                CommonAdapter adapter = (CommonAdapter) gridView.getAdapter();
+                if (adapter == null) {
+                    gridView.setAdapter(new CommonAdapter<GameBean>(ExpandableListActivity.this, gameBeanList, R.layout.grid_item_game) {
+                        @Override
+                        public void onBindViewHolder(CommonViewHolder viewHolder, GameBean data) {
+                            ImageView iv = viewHolder.getView(R.id.iv_game);
+                            Glide.with(ExpandableListActivity.this).load(data.getImg_url()).centerCrop().into(iv);
                         }
+                    });
+                } else {
+                    if (gameBeanList != null) {
+                        adapter.setDataList(gameBeanList);
+                        adapter.notifyDataSetChanged();
                     }
                 }
             }
@@ -118,13 +120,11 @@ public class ExpandableListActivity extends AppCompatActivity {
             @Override
             public int getChildrenCount(int groupPosition, GameTypeBean groupData) {
                 return 1;
-                //return groupData.getGameBeanList().size();
             }
 
             @Override
             public Object getChild(int groupPosition, int childPosition, GameTypeBean groupData) {
                 return groupData.getGameBeanList();
-                //return groupData.getGameBeanList().get(childPosition);
             }
         };
         elv_main.setAdapter(gameTypeBeanAdapter);
@@ -140,11 +140,11 @@ public class ExpandableListActivity extends AppCompatActivity {
             gameBean.setImg_url(imageUrls[i % imageUrls.length]);
             gameBeanList1.add(gameBean);
         }
-        gameTypeBean1.setName("1 Type");
+        gameTypeBean1.setName("game Type0");
         gameTypeBean1.setGameBeanList(gameBeanList1);
         gameTypeBeanList.add(gameTypeBean1);
 
-        for (int j = 0; j < 10; j++) {
+        for (int j = 1; j < 10; j++) {
             GameTypeBean gameTypeBean = new GameTypeBean();
             List<GameBean> gameBeanList = new ArrayList<>();
             for (int i = 0; i < 15; i++) {

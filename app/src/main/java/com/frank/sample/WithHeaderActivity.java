@@ -37,13 +37,15 @@ public class WithHeaderActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.lv_1);
         gameBeanAdapter = new WithHeaderAdapter<GameBean>(this, R.layout.listitem_header,
                 R.layout.listitem_game, gameBeanList) {
+
+            @Override
+            public void onBindHeader(CommonViewHolder viewHolder) {
+                viewHolder.setImageResource(R.id.iv_header, android.R.drawable.ic_menu_camera);
+                viewHolder.setText(R.id.tv_header, "I am HeaderView!");
+            }
+
             @Override
             public void onBindViewHolder(CommonViewHolder viewHolder, GameBean data) {
-                if (data == null) {
-                    viewHolder.setImageResource(R.id.iv_header, android.R.drawable.ic_menu_camera);
-                    viewHolder.setText(R.id.tv_header, "Header View!");
-                    return;
-                }
                 viewHolder.setImageResource(R.id.iv_logo, Integer.valueOf(data.getImg_url()));
                 viewHolder.setText(R.id.tv_name, data.getName());
             }

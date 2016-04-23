@@ -1,6 +1,7 @@
 package com.frank.commonadapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +50,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
         CommonViewHolder viewHolder;
         if (convertView == null) {
             convertView = mInflater.inflate(mLayoutId, parent, false);
-            //Log.e("shang", "getView inflate:" + position+"                          "+convertView);
+            Log.e("shang", "getView inflate:" + position+"                          "+convertView);
             viewHolder = new CommonViewHolder(mContext, mLayoutId, convertView, position);
             convertView.setTag(viewHolder);
         } else {
@@ -102,7 +103,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
             View view = mViews.get(viewId);
             if (view == null) {
                 view = mConvertView.findViewById(viewId);
-                //Log.e("shang", "findViewById:"+viewId+"                          "+view);
+                Log.e("shang", "findViewById:"+viewId+"                          "+view);
                 mViews.put(viewId, view);
             }
             return (T) view;
