@@ -1,4 +1,4 @@
-package com.frank.sample;
+package com.frank.sample.adapter;
 
 import android.content.Context;
 
@@ -15,25 +15,13 @@ public class MultiTypeAdapter extends MultiTypeCommonAdapter<TimelineBean> {
     }
 
     @Override
-    public int getLayoutId(int position, TimelineBean data) {
-        switch (data.getEventType()) {
-            case TimelineBean.TYPE_GAME:
-                return R.layout.listitem_game;
-            case TimelineBean.TYPE_VIDEO:
-                return R.layout.listitem_video;
-            default:
-                return R.layout.listitem_game;
-        }
-    }
-
-    @Override
     public int getItemViewTypeCount() {
         return 2;
     }
 
     @Override
-    public int getItemViewType(int position, TimelineBean data) {
-        switch (getLayoutId(position, data)) {
+    public int getItemViewType(int layoutId, int position, TimelineBean data) {
+        switch (layoutId) {
             case R.layout.listitem_game:
                 return 0;
             case R.layout.listitem_video:
@@ -43,8 +31,18 @@ public class MultiTypeAdapter extends MultiTypeCommonAdapter<TimelineBean> {
     }
 
     @Override
-    public void onBindViewHolder(CommonViewHolder holder, TimelineBean data) {
+    public int getLayoutId(int position, TimelineBean data) {
+        switch (data.getEventType()) {
+            case TimelineBean.TYPE_GAME:
+                return R.layout.listitem_game;
+            case TimelineBean.TYPE_VIDEO:
+                return R.layout.listitem_video;
+        }
+        return R.layout.listitem_game;
+    }
 
+    @Override
+    public void onBindViewHolder(CommonViewHolder holder, TimelineBean data) {
         switch (holder.getLayoutId()) {
             case R.layout.listitem_game:
                 holder.setImageResource(R.id.iv_logo, Integer.valueOf(data.getGameBean().getImg_url()));

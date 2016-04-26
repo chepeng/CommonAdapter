@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.frank.commonadapter.MultiTypeCommonAdapter;
 import com.frank.commonadapter.R;
+import com.frank.commonadapter.SectionCommonAdapter;
 import com.frank.sample.adapter.MultiTypeAdapter;
 import com.frank.sample.bean.GameBean;
 import com.frank.sample.bean.TimelineBean;
@@ -18,16 +19,17 @@ import com.frank.sample.bean.VideoBean;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MultiTypeActivity extends AppCompatActivity {
+public class SectionActivity extends AppCompatActivity {
 
     ListView listView;
     List<TimelineBean> timelineBeanList = new ArrayList<>();
     MultiTypeCommonAdapter<TimelineBean> timelineBeanAdapter;
+    SectionCommonAdapter<TimelineBean> sectionCommonAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_multi_type);
+        setContentView(R.layout.activity_section);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getTitle());
         setSupportActionBar(toolbar);
@@ -39,11 +41,21 @@ public class MultiTypeActivity extends AppCompatActivity {
         });
         listView = (ListView) findViewById(R.id.lv_1);
         timelineBeanAdapter = new MultiTypeAdapter(this, timelineBeanList);
-        listView.setAdapter(timelineBeanAdapter);
+        sectionCommonAdapter = new SectionCommonAdapter<TimelineBean>(this, timelineBeanAdapter, R.layout.listitem_section, R.id.tv_section) {
+            @Override
+            public String getSectionTitle(TimelineBean data) {
+                if (TimelineBean.TYPE_GAME.equals(data.getEventType())) {
+                    return "All Game";
+                } else{
+                    return "All Video";
+                }
+            }
+        };
+        listView.setAdapter(sectionCommonAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MultiTypeActivity.this,""+position,Toast.LENGTH_SHORT).show();
+                Toast.makeText(SectionActivity.this,""+position,Toast.LENGTH_SHORT).show();
             }
         });
         getData();
@@ -69,6 +81,6 @@ public class MultiTypeActivity extends AppCompatActivity {
             timelineBean.setVideoBean(videoBean);
             timelineBeanList.add(timelineBean);
         }
-        timelineBeanAdapter.notifyDataSetChanged();
+        sectionCommonAdapter.notifyDataSetChanged();
     }
 }

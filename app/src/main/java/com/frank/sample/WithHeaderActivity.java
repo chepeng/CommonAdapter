@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.frank.commonadapter.R;
 import com.frank.commonadapter.WithHeaderAdapter;
@@ -54,11 +55,7 @@ public class WithHeaderActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    return;
-                }
-                gameBeanList.remove(position - 1);
-                gameBeanAdapter.notifyDataSetChanged();
+                Toast.makeText(WithHeaderActivity.this,""+position,Toast.LENGTH_SHORT).show();
             }
         });
         getData();

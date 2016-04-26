@@ -18,11 +18,12 @@ import java.util.List;
  * private GameBean gameBean;
  * private VideoBean videoBean;
  * </pre>
- * 利用组装好的实体类List并实现3个方法：
+ * 组装好的实体类List并实现以下方法：
  * <ul>
- * <li>getViewTypeCount()，返回布局类型个数</li>
- * <li>getItemViewType(int position, T data)，返回0~ getViewTypeCount()-1的整数(可由position或data.getType()决定具体返回值）</li>
- * <li>getLayoutId(int position, T data)，返回布局文件id(可由position或data.getType()决定具体返回值）</li>
+ * <li>getItemViewTypeCount(). 返回布局类型个数</li>
+ * <li>getItemViewType(int layoutId, int position, T data). 返回[0,getItemViewTypeCount()-1]的整数(由layoutId或position决定具体返回值）</li>
+ * <li>getLayoutId(int position, T data). 返回布局文件id(由position或data.getType()决定具体返回值）</li>
+ * <li>onBindViewHolder(CommonViewHolder holder, T data). 绑定ViewHolder(由holder.getLayoutId()或data.getType()决定具体View绑定）</li>
  * </ul>
  *
  * @param <T> 数据实体类型
@@ -40,7 +41,10 @@ public abstract class MultiTypeCommonAdapter<T> extends CommonAdapter<T> {
 
     @Override
     public int getItemViewType(int position) {
-        return getItemViewType(position, mDataList.get(position));
+        if (position >= mDataList.size()) {
+            return super.getItemViewType(position);
+        }
+        return getItemViewType(getLayoutId(position, mDataList.get(position)), position, mDataList.get(position));
     }
 
     @Override
@@ -59,9 +63,27 @@ public abstract class MultiTypeCommonAdapter<T> extends CommonAdapter<T> {
         return convertView;
     }
 
-    public abstract int getLayoutId(int position, T data);
-
+    /**
+     * 返回布局类型个数
+     * @return 布局类型个数
+     */
     public abstract int getItemViewTypeCount();
 
-    public abstract int getItemViewType(int position, T data);
+    /**
+     * 返回[0,getItemViewTypeCount()-1]的整数(由layoutId或position决定具体返回值）
+     * @param layoutId 当前布局id
+     * @param position position
+     * @param data 当前位置数据实体
+     * @return [0,getItemViewTypeCount()-1]的整数
+     */
+    public abstract int getItemViewType(int layoutId, int position, T data);
+
+    /**
+     * 返回布局文件id(由position或data.getType()决定具体返回值）
+     * @param position position
+     * @param data 数据实体
+     * @return 布局文件id
+     */
+    public abstract int getLayoutId(int position, T data);
+
 }

@@ -14,23 +14,10 @@ import java.util.List;
  * 子类只须实现：
  * <ol>
  * <li>{@link ExpandableListCommonAdapter#onBindGroupViewHolder(int, CommonAdapter.CommonViewHolder, Object)}</li>
+ * <li>{@link ExpandableListCommonAdapter#onBindChildViewHolder(int, int, CommonAdapter.CommonViewHolder, Object)}</li>
  * <li>{@link ExpandableListCommonAdapter#getChildrenCount(int, Object)}</li>
  * <li>{@link ExpandableListCommonAdapter#getChild(int, int, Object)}</li>
  * </ol>
- * 三个方法。<br></br>
- * 在<font color="blue">onBindViewHolder(int groupPosition, int childPosition, CommonAdapter.CommonViewHolder viewHolder, T data, boolean isGroup)</font>
- * 中，可通过isGroup判断是Group还是Child：
- * <pre class="prettyprint">
- *     public void onBindViewHolder(int groupPosition, int childPosition, CommonAdapter.CommonViewHolder viewHolder, GameTypeBean data, boolean isGroup) {
- *         if (isGroup) {
- *             //绑定组的数据...
- *             viewHolder.setText(R.id.tv_game_type, data.getName());
- *         } else {
- *             //绑定子项的数据...
- *             viewHolder.setText(R.id.tv_game_name, data.getGameBeanList().get(childPosition).getName());
- *         }
- *     }
- * </pre>
  * </p>
  * @param <T>
  */

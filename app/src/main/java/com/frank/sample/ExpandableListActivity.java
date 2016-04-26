@@ -2,6 +2,8 @@ package com.frank.sample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 
@@ -11,6 +13,7 @@ import com.frank.commonadapter.ExpandableListCommonAdapter;
 import com.frank.commonadapter.R;
 import com.frank.sample.bean.GameBean;
 import com.frank.sample.bean.GameTypeBean;
+import com.frank.sample.widget.ExpandedGridView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +91,15 @@ public class ExpandableListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expandable_list);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(getTitle());
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         elv_main = (ExpandableListView) findViewById(R.id.elv_main);
         gameTypeBeanAdapter = new ExpandableListCommonAdapter<GameTypeBean>(this, gameTypeBeanList, R.layout.listitem_game_group, R.layout.listitem_game_child) {
 

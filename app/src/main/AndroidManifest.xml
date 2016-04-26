@@ -3,6 +3,7 @@
     package="com.frank.commonadapter">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,9 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.frank.sample.MultiTypeActivity"></activity>
-        <activity android:name="com.frank.sample.WithHeaderActivity"></activity>
-        <activity android:name="com.frank.sample.ExpandableListActivity"></activity>
+        <activity android:name="com.frank.sample.MultiTypeActivity" android:label="@string/MultiTypeAdapter"/>
+        <activity android:name="com.frank.sample.WithHeaderActivity" android:label="@string/WithHeaderAdapter"/>
+        <activity android:name="com.frank.sample.ExpandableListActivity" android:label="@string/ExpandableListAdapter"/>
+        <activity android:name="com.frank.sample.SectionActivity" android:label="@string/SectionAdapter"/>
     </application>
 
 </manifest>

@@ -73,12 +73,13 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
     }
 
     /**
-     * 绑定数据项到列表项
+     * 绑定数据项到列表项<br/>
+     * 注意：该方法每次`getView()`都会执行，不要在该方法中做复杂或耗时操作，不要每次都设置Listener监听器
      *
      * @param viewHolder 列表项View的Holder，可通过{@link CommonViewHolder#getView(int)}
-     *                   获取当前列表项中ID为viewId的View对象，可通过{@link CommonViewHolder#getPosition()}
+     *                   获取当前列表项中Id为viewId的View对象，可通过{@link CommonViewHolder#getPosition()}
      *                   获取当前列表项的position
-     * @param data       数据列表的数据实体，如果为 {@code null} 表明该列表项是非数据项(HeaderView)
+     * @param data       数据列表的数据实体
      */
     public abstract void onBindViewHolder(CommonViewHolder viewHolder, T data);
 

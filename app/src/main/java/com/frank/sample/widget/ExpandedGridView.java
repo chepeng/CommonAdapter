@@ -1,4 +1,4 @@
-package com.frank.sample;
+package com.frank.sample.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;

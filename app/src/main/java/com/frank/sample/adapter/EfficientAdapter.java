@@ -1,4 +1,4 @@
-package com.frank.sample;
+package com.frank.sample.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -60,8 +60,8 @@ public class EfficientAdapter extends BaseAdapter {
     /**
      * Make a view to hold each row.
      *
-     * @see android.widget.ListAdapter#getView(int, android.view.View,
-     * android.view.ViewGroup)
+     * @see android.widget.ListAdapter#getView(int, View,
+     * ViewGroup)
      */
     public View getView(int position, View convertView, ViewGroup parent) {
         // A ViewHolder keeps references to children views to avoid unneccessary calls

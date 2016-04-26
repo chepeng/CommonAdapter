@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 /**
- * <p>带一个头布局列表项的ListView通用适配器，建议使用{@link android.widget.ListView#addHeaderView(View)}
+ * <p>带一个Header布局的ListView通用适配器，建议使用{@link android.widget.ListView#addHeaderView(View)}
  * 替代，而不是使用该适配器<p/>
  * 需实现{@link WithHeaderAdapter#onBindHeader(CommonViewHolder)}方法初始化Header,
  * 实现{@link WithHeaderAdapter#onBindViewHolder(CommonViewHolder, Object)}方法绑定数据。

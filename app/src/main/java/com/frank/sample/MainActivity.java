@@ -4,16 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.frank.commonadapter.CommonAdapter;
 import com.frank.commonadapter.R;
-import com.frank.commonadapter.WithHeaderAdapter;
 import com.frank.sample.bean.GameBean;
 
 import java.util.ArrayList;
@@ -47,8 +46,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                gameBeanList.remove(position);
-                gameBeanAdapter.notifyDataSetChanged();
+                Toast.makeText(MainActivity.this,""+position,Toast.LENGTH_SHORT).show();
             }
         });
         getData();
@@ -58,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 40; i++) {
             GameBean gameBean = new GameBean();
             gameBean.setName("game" + i);
-            gameBean.setImg_url(String.valueOf(R.mipmap.ic_launcher));
+            gameBean.setImg_url(String.valueOf(android.R.drawable.ic_btn_speak_now));
             gameBeanList.add(gameBean);
         }
         gameBeanAdapter.notifyDataSetChanged();
@@ -85,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.menu_expandable:
                     Intent intent3 = new Intent(MainActivity.this, ExpandableListActivity.class);
                     MainActivity.this.startActivity(intent3);
+                    break;
+                case R.id.menu_section:
+                    Intent intent4 = new Intent(MainActivity.this, SectionActivity.class);
+                    MainActivity.this.startActivity(intent4);
                     break;
                 default:
                     break;

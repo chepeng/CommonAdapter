@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CommonAdapter</string>
+    <string name="CommonAdapter">CommonAdapter</string>
+    <string name="MultiTypeAdapter">MultiTypeAdapter</string>
+    <string name="WithHeaderAdapter">WithHeaderAdapter</string>
+    <string name="ExpandableListAdapter">ExpandableListAdapter</string>
+    <string name="SectionAdapter">SectionAdapter</string>
 </resources>
