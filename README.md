@@ -1,12 +1,13 @@
 # CommonAdapter
 包括：
 * 通用适配器`CommonAdapter<T>`
-* 多布局类型的适配器`MultiTypeCommonAdapter<T>`
-* 第一个列表项为HeaderView的适配器（不建议使用）`WithHeaderAdapter<T>`
+* 多布局类型的通用适配器`MultiTypeCommonAdapter<T>`
 * ExpandableListView的通用适配器`ExpandableListCommonAdapter<T>`
+* 分类列表的通用适配器`SectionCommonAdapter<T>`
+* 第一个列表项为HeaderView的通用适配器（不建议使用）`WithHeaderAdapter<T>`
 
 ## CommonAdapter<T>
-通用适配器。封装了convertView复用及findViewById()，提供静态通用ViewHolder。对于只有一种布局文件，且其适配器只用一次，就无需新建适配器类，可采用匿名类的方式
+简单通用适配器。封装了convertView复用及findViewById()，提供静态通用ViewHolder。对于只有一种布局文件，且其适配器只用一次，就无需新建适配器类，可采用匿名类的方式
 实现`onBindViewHolder(CommonViewHolder viewHolder, T data)`方法即可。
 例子（详细示例请详见源码的sample）：
 ```java
@@ -46,33 +47,22 @@ public class TimelineBean {
     //Getter/Setter...
 }
 ```
-子类需实现4个方法：
-* `getItemViewTypeCount()`，返回布局类型数量
-* `getItemViewType(int position, T data)`，返回0~getViewTypeCount()-1之间的整数(可由position或data.getType()决定具体返回值）
-* `getLayoutId(int position, T data)`，返回布局文件id(可由position或data.getType()决定具体返回值）
-* `onBindViewHolder(CommonViewHolder viewHolder, T data)`
-在`onBindViewHolder(CommonViewHolder viewHolder, T data)`方法中，通过`switch (holder.getLayoutId()){}`可根据不同布局文件id进行不同的数据绑定（详细示例请详见源码的sample）：
-```java
-    @Override
-    public int getLayoutId(int position, TimelineBean data) {
-        switch (data.getEventType()) {
-            case TimelineBean.TYPE_GAME:
-                return R.layout.listitem_game;
-            case TimelineBean.TYPE_VIDEO:
-                return R.layout.listitem_video;
-            default:
-                return R.layout.listitem_game;
-        }
-    }
+组装好的实体类List并实现以下方法：
+* `getItemViewTypeCount()`. 返回布局类型个数
+* `getItemViewType(int layoutId, int position, T data)`. 返回[0,getItemViewTypeCount()-1]的整数(由layoutId或position决定具体返回值）
+* `getLayoutId(int position, T data)`. 返回布局文件id(由position或data.getType()决定具体返回值）
+* `onBindViewHolder(CommonViewHolder holder, T data)`. 绑定ViewHolder(由holder.getLayoutId()或data.getType()决定具体View绑定）
 
+如：
+```java
     @Override
     public int getItemViewTypeCount() {
         return 2;
     }
 
     @Override
-    public int getItemViewType(int position, TimelineBean data) {
-        switch (getLayoutId(position, data)) {
+    public int getItemViewType(int layoutId, int position, TimelineBean data) {
+        switch (layoutId) {
             case R.layout.listitem_game:
                 return 0;
             case R.layout.listitem_video:
@@ -82,8 +72,18 @@ public class TimelineBean {
     }
 
     @Override
-    public void onBindViewHolder(CommonViewHolder holder, TimelineBean data) {
+    public int getLayoutId(int position, TimelineBean data) {
+        switch (data.getEventType()) {
+            case TimelineBean.TYPE_GAME:
+                return R.layout.listitem_game;
+            case TimelineBean.TYPE_VIDEO:
+                return R.layout.listitem_video;
+        }
+        return R.layout.listitem_game;
+    }
 
+    @Override
+    public void onBindViewHolder(CommonViewHolder holder, TimelineBean data) {
         switch (holder.getLayoutId()) {
             case R.layout.listitem_game:
                 holder.setImageResource(R.id.iv_logo, Integer.valueOf(data.getGameBean().getImg_url()));
@@ -97,41 +97,53 @@ public class TimelineBean {
         }
     }
 ```
-## WithHeaderAdapter<T>
-第一个列表项为HeaderView的通用适配器。建议使用`ListView#addHeaderView(View)`替代，而不是使用该适配器。<br/>
-只需实现`onBindViewHolder(CommonViewHolder viewHolder, T data)`方法,如果data为`null`表明该列表项是HeaderView。
-
-> 建议：`onBindViewHolder(CommonViewHolder viewHolder, T data)`方法的代码格式为（详细示例请详见源码的sample）：
-
-```java
-        if(data == null) {
-                //绑定HeaderView...
-                viewHolder.setText(R.id.tv_header, "Header View!");
-                return;
-        }
-        //正常数据绑定...
-        viewHolder.setText(R.id.tv_name, data.getName());
-```
 ## ExpandableListCommonAdapter<T>
 ExpandableListView的通用适配器。封装了convertView复用及findViewById()。
 子类只须实现：
-* `onBindViewHolder(int groupPosition, int childPosition, CommonAdapter.CommonViewHolder viewHolder, T data, boolean isGroup)`
+* `onBindGroupViewHolder(int groupPosition, CommonAdapter.CommonViewHolder viewHolder, T groupData)`
+* `onBindChildViewHolder(int groupPosition, int childPosition, CommonAdapter.CommonViewHolder viewHolder, T groupData)`
 * `getChildrenCount(int groupPosition, T groupData)`
 * `getChild(int groupPosition, int childPosition, T groupData)`
 
-三个方法。
-在`onBindViewHolder(int groupPosition, int childPosition, CommonAdapter.CommonViewHolder viewHolder, T data, boolean isGroup)`方法
-中，可通过isGroup判断是Group还是Child（详细示例请详见源码的sample）：
+## SectionCommonAdapter<T>
+分类列表的通用适配器。即将列表分类并给每一类添加一个分类Bar。只需实现`getSectionTitle(T data)`方法即可。构造器(Context context,BaseAdapter listAdapter,int sectionLayoutId,int sectionTitleId)，即包裹列表原来的构造器，因此设置监听器时需使用该监听器并使用该监听器的`notifyDataSetChanged()`方法刷新数据：
 ```java
-    public void onBindViewHolder(int groupPosition, int childPosition, CommonAdapter.CommonViewHolder viewHolder, GameTypeBean data, boolean isGroup) {
-        if (isGroup) {
-            //绑定组的数据...
-            viewHolder.setText(R.id.tv_game_type, data.getName());
-        } else {
-            //绑定子项的数据...
-            viewHolder.setText(R.id.tv_game_name, data.getGameBeanList().get(childPosition).getName());
-        }
-    }
+        listView = (ListView) findViewById(R.id.lv_1);
+        timelineBeanAdapter = new MultiTypeAdapter(this, timelineBeanList);
+        sectionCommonAdapter = new SectionCommonAdapter<TimelineBean>(this, timelineBeanAdapter, R.layout.listitem_section, R.id.tv_section) {
+            @Override
+            public String getSectionTitle(TimelineBean data) {
+                if (TimelineBean.TYPE_GAME.equals(data.getEventType())) {
+                    return "All Game";
+                } else{
+                    return "All Video";
+                }
+            }
+        };
+        listView.setAdapter(sectionCommonAdapter);
+```
+## WithHeaderAdapter<T>(不建议使用)
+第一个列表项为HeaderView的通用适配器。建议使用`ListView#addHeaderView(View)`替代，而不是使用该适配器。<br/>
+实现`onBindHeader(CommonViewHolder)`方法初始化Header,实现`onBindViewHolder(CommonViewHolder, Object)`方法绑定数据。
+```java
+        listView = (ListView) findViewById(R.id.lv_1);
+        gameBeanAdapter = new WithHeaderAdapter<GameBean>(this, R.layout.listitem_header,
+                R.layout.listitem_game, gameBeanList) {
+
+            @Override
+            public void onBindHeader(CommonViewHolder viewHolder) {
+                viewHolder.setImageResource(R.id.iv_header, android.R.drawable.ic_menu_camera);
+                viewHolder.setText(R.id.tv_header, "I am HeaderView!");
+            }
+
+            @Override
+            public void onBindViewHolder(CommonViewHolder viewHolder, GameBean data) {
+                viewHolder.setImageResource(R.id.iv_logo, Integer.valueOf(data.getImg_url()));
+                viewHolder.setText(R.id.tv_name, data.getName());
+            }
+        };
+        listView.setAdapter(gameBeanAdapter);
 ```
 ## 感谢
-[hongyangAndroid/base-adapter](https://github.com/hongyangAndroid/base-adapter)
+[JoanZapata/base-adapter-helper](https://github.com/JoanZapata/base-adapter-helper)
+[ragunathjawahar/simple-section-adapter](https://github.com/ragunathjawahar/simple-section-adapter)
