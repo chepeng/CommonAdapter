@@ -4,7 +4,7 @@
 * 多布局类型的通用适配器`MultiTypeCommonAdapter<T>`
 * ExpandableListView的通用适配器`ExpandableListCommonAdapter<T>`
 * 分类列表的通用适配器`SectionCommonAdapter<T>`
-* 第一个列表项为HeaderView的通用适配器<font color=red>(不建议使用)</font>`WithHeaderAdapter<T>`
+* 第一个列表项为HeaderView的通用适配器<font color=red>~~不建议使用~~</font>`WithHeaderAdapter<T>`
 
 ## CommonAdapter<T>
 简单通用适配器。封装了convertView复用及findViewById()，提供静态通用ViewHolder。对于只有一种布局文件，且其适配器只用一次，就无需新建适配器类，可采用匿名类的方式
@@ -122,7 +122,7 @@ ExpandableListView的通用适配器。封装了convertView复用及findViewById
         };
         listView.setAdapter(sectionCommonAdapter);
 ```
-## WithHeaderAdapter<T><font color=gray>(不建议使用)</font>
+## WithHeaderAdapter<T><font color=red>~~不建议使用~~</font>
 第一个列表项为HeaderView的通用适配器。建议使用`ListView#addHeaderView(View)`替代，而不是使用该适配器。<br/>
 实现`onBindHeader(CommonViewHolder)`方法初始化Header,实现`onBindViewHolder(CommonViewHolder, Object)`方法绑定数据。
 ```java
