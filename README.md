@@ -4,9 +4,9 @@
 * 多布局类型的通用适配器`MultiTypeCommonAdapter<T>`
 * ExpandableListView的通用适配器`ExpandableListCommonAdapter<T>`
 * 分类列表的通用适配器`SectionCommonAdapter<T>`
-* 第一个列表项为HeaderView的通用适配器<font color=red>~~不建议使用~~</font>`WithHeaderAdapter<T>`
+* 第一个列表项为HeaderView的通用适配器(<font color=#FF0000>~~不建议使用~~</font>)`WithHeaderAdapter<T>`
 
-## CommonAdapter<T>
+## CommonAdapter
 简单通用适配器。封装了convertView复用及findViewById()，提供静态通用ViewHolder。对于只有一种布局文件，且其适配器只用一次，就无需新建适配器类，可采用匿名类的方式
 实现`onBindViewHolder(CommonViewHolder viewHolder, T data)`方法即可。
 例子（详细示例请详见源码的sample）：
@@ -25,7 +25,7 @@
 
 >data：数据列表中该位置的数据实体
      
-## MultiTypeCommonAdapter<T>
+## MultiTypeCommonAdapter
 多类型布局适配器。简化多种布局文件的View操作。
 
 >建议：将所有列表项数据规范为一种类型，以便通过对象辨别列表项类型：
@@ -97,7 +97,7 @@ public class TimelineBean {
         }
     }
 ```
-## ExpandableListCommonAdapter<T>
+## ExpandableListCommonAdapter
 ExpandableListView的通用适配器。封装了convertView复用及findViewById()。
 子类只须实现：
 * `onBindGroupViewHolder(int groupPosition, CommonAdapter.CommonViewHolder viewHolder, T groupData)`
@@ -105,7 +105,7 @@ ExpandableListView的通用适配器。封装了convertView复用及findViewById
 * `getChildrenCount(int groupPosition, T groupData)`
 * `getChild(int groupPosition, int childPosition, T groupData)`
 
-## SectionCommonAdapter<T>
+## SectionCommonAdapter
 分类列表的通用适配器。即将列表分类并给每一类添加一个分类Bar。只需实现`getSectionTitle(T data)`方法即可。构造器(Context context,BaseAdapter listAdapter,int sectionLayoutId,int sectionTitleId)，即包裹列表原来的构造器，因此设置监听器时需使用该监听器并使用该监听器的`notifyDataSetChanged()`方法刷新数据：
 ```java
         listView = (ListView) findViewById(R.id.lv_1);
@@ -122,7 +122,7 @@ ExpandableListView的通用适配器。封装了convertView复用及findViewById
         };
         listView.setAdapter(sectionCommonAdapter);
 ```
-## WithHeaderAdapter<T><font color=red>~~不建议使用~~</font>
+## WithHeaderAdapter(<font color=#FF0000>~~不建议使用~~</font>)
 第一个列表项为HeaderView的通用适配器。建议使用`ListView#addHeaderView(View)`替代，而不是使用该适配器。<br/>
 实现`onBindHeader(CommonViewHolder)`方法初始化Header,实现`onBindViewHolder(CommonViewHolder, Object)`方法绑定数据。
 ```java
@@ -144,6 +144,6 @@ ExpandableListView的通用适配器。封装了convertView复用及findViewById
         };
         listView.setAdapter(gameBeanAdapter);
 ```
-## 感谢
+## Thanks
 - [JoanZapata/base-adapter-helper](https://github.com/JoanZapata/base-adapter-helper)
 - [ragunathjawahar/simple-section-adapter](https://github.com/ragunathjawahar/simple-section-adapter)
