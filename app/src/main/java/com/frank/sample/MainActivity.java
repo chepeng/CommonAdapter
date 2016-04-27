@@ -71,22 +71,27 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
+            Intent intent;
             switch (menuItem.getItemId()) {
                 case R.id.menu_multi_type:
-                    Intent intent = new Intent(MainActivity.this, MultiTypeActivity.class);
+                    intent = new Intent(MainActivity.this, MultiTypeActivity.class);
                     MainActivity.this.startActivity(intent);
                     break;
                 case R.id.menu_with_header:
-                    Intent intent2 = new Intent(MainActivity.this, WithHeaderActivity.class);
-                    MainActivity.this.startActivity(intent2);
+                    intent = new Intent(MainActivity.this, WithHeaderActivity.class);
+                    MainActivity.this.startActivity(intent);
                     break;
                 case R.id.menu_expandable:
-                    Intent intent3 = new Intent(MainActivity.this, ExpandableListActivity.class);
-                    MainActivity.this.startActivity(intent3);
+                    intent = new Intent(MainActivity.this, ExpandableListActivity.class);
+                    MainActivity.this.startActivity(intent);
                     break;
                 case R.id.menu_section:
-                    Intent intent4 = new Intent(MainActivity.this, SectionActivity.class);
-                    MainActivity.this.startActivity(intent4);
+                    intent = new Intent(MainActivity.this, SectionActivity.class);
+                    MainActivity.this.startActivity(intent);
+                    break;
+                case R.id.menu_section_expandable:
+                    intent = new Intent(MainActivity.this, SectionExpandableListActivity.class);
+                    MainActivity.this.startActivity(intent);
                     break;
                 default:
                     break;

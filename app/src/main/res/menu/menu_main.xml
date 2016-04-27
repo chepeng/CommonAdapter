@@ -8,21 +8,27 @@
         android:title="多布局类型的ListView"
         tools:ignore="AppCompatResource" />
     <item
+        android:id="@+id/menu_expandable"
+        android:icon="@android:drawable/ic_dialog_alert"
+        android:showAsAction="never"
+        android:title="简单的ExpandableListView"
+        tools:ignore="AppCompatResource" />
+    <item
         android:id="@+id/menu_with_header"
         android:icon="@android:drawable/ic_menu_help"
         android:showAsAction="never"
         android:title="带头布局的ListView"
         tools:ignore="AppCompatResource" />
     <item
-        android:id="@+id/menu_expandable"
-        android:icon="@android:drawable/ic_dialog_alert"
-        android:showAsAction="never"
-        android:title="ExpandableListView"
-        tools:ignore="AppCompatResource" />
-    <item
         android:id="@+id/menu_section"
         android:icon="@android:drawable/ic_dialog_alert"
         android:showAsAction="never"
-        android:title="分类Section"
+        android:title="分类的ListView"
+        tools:ignore="AppCompatResource" />
+    <item
+        android:id="@+id/menu_section_expandable"
+        android:icon="@android:drawable/ic_dialog_alert"
+        android:showAsAction="never"
+        android:title="分类的ExpandableListView"
         tools:ignore="AppCompatResource" />
 </menu>
