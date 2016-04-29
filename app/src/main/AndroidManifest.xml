@@ -29,7 +29,10 @@
         <activity
             android:name="com.frank.sample.SectionActivity"
             android:label="@string/SectionAdapter" />
-        <activity android:name="com.frank.sample.SectionExpandableListActivity"></activity>
+        <activity android:name="com.frank.sample.SectionExpandableListActivity"
+            android:label="@string/SectionExpandableListAdapter" />
+        <activity android:name="com.frank.sample.SimpleRecyclerViewActivity"
+            android:label="@string/RecyclerViewCommonAdapter" />
     </application>
 
 </manifest>

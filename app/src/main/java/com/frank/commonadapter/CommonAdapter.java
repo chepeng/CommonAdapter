@@ -93,11 +93,11 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 
         public CommonViewHolder(Context context, int layoutId, View convertView,
                                 int position) {
-            mContext = context;
-            mLayoutId = layoutId;
+            this.mContext = context;
+            this.mLayoutId = layoutId;
+            this.mConvertView = convertView;
             this.mPosition = position;
             this.mViews = new SparseArray<>();
-            mConvertView = convertView;
         }
 
         public <T extends View> T getView(int viewId) {

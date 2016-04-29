@@ -5,4 +5,6 @@
     <string name="WithHeaderAdapter">WithHeaderAdapter</string>
     <string name="ExpandableListAdapter">ExpandableListAdapter</string>
     <string name="SectionAdapter">SectionAdapter</string>
+    <string name="SectionExpandableListAdapter">SectionExpandableListAdapter</string>
+    <string name="RecyclerViewCommonAdapter">RecyclerViewCommonAdapter</string>
 </resources>

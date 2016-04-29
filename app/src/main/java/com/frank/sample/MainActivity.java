@@ -93,6 +93,10 @@ public class MainActivity extends AppCompatActivity {
                     intent = new Intent(MainActivity.this, SectionExpandableListActivity.class);
                     MainActivity.this.startActivity(intent);
                     break;
+                case R.id.menu_simple_recyclerview:
+                    intent = new Intent(MainActivity.this, SimpleRecyclerViewActivity.class);
+                    MainActivity.this.startActivity(intent);
+                    break;
                 default:
                     break;
             }
