@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">CommonAdapter</string>
+    <string name="insert">insert</string>
+    <string name="remove">remove</string>
     <string name="CommonAdapter">CommonAdapter</string>
-    <string name="MultiTypeAdapter">MultiTypeAdapter</string>
-    <string name="WithHeaderAdapter">WithHeaderAdapter</string>
+    <string name="MultiTypeCommonAdapter">MultiTypeCommonAdapter</string>
     <string name="ExpandableListAdapter">ExpandableListAdapter</string>
     <string name="SectionAdapter">SectionAdapter</string>
     <string name="SectionExpandableListAdapter">SectionExpandableListAdapter</string>
-    <string name="RecyclerViewCommonAdapter">RecyclerViewCommonAdapter</string>
+    <string name="RVCommonAdapter">RVCommonAdapter</string>
+    <string name="RVMultiTypeCommonAdapter">RVMultiTypeCommonAdapter</string>
 </resources>

@@ -3,7 +3,6 @@ package com.frank.commonadapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,69 +11,20 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public abstract class RecyclerViewCommonAdapter<T> extends RecyclerView.Adapter<RecyclerViewCommonAdapter.RecyclerViewCommonViewHolder> {
-    private Context mContext;
-    private List<T> mDataList;
-    private LayoutInflater mInflater;
-    private int mLayoutId;
-    private OnItemClickListener mOnItemClickListener;
-    private OnItemLongClickListener mOnItemLongClickListener;
+public abstract class RVCommonAdapter<T> extends RecyclerView.Adapter<RVCommonAdapter.RVCommonViewHolder> {
 
-    public RecyclerViewCommonAdapter(Context context, int layoutId, List<T> dataList) {
-        this.mContext = context;
-        this.mDataList = dataList;
+    private static final String TAG = "RVCommonAdapter";
+
+    protected List<T> mDataList;
+    protected LayoutInflater mInflater;
+    protected int mLayoutId;
+    protected OnItemClickListener mOnItemClickListener;
+    protected OnItemLongClickListener mOnItemLongClickListener;
+
+    public RVCommonAdapter(Context context, List<T> dataList, int layoutId) {
         this.mInflater = LayoutInflater.from(context);
+        this.mDataList = dataList;
         this.mLayoutId = layoutId;
-    }
-
-    /**
-     * 为每个数据项提供视图引用
-     */
-    public static class RecyclerViewCommonViewHolder extends RecyclerView.ViewHolder {
-
-        private Context mContext;
-        private int mLayoutId;
-        private View mItemView;
-        private SparseArray<View> mViews;
-
-        public RecyclerViewCommonViewHolder(Context context, int layoutId, View itemView) {
-            super(itemView);
-            this.mContext = context;
-            this.mLayoutId = layoutId;
-            this.mItemView = itemView;
-            this.mViews = new SparseArray<>();
-        }
-
-        public <T extends View> T getView(int viewId) {
-            View view = mViews.get(viewId);
-            if (view == null) {
-                view = mItemView.findViewById(viewId);
-                mViews.put(viewId, view);
-            }
-            return (T) view;
-        }
-
-        public int getLayoutId() {
-            return mLayoutId;
-        }
-
-        public Context getContext() {
-            return mContext;
-        }
-
-        public RecyclerViewCommonViewHolder setText(int viewId, String text) {
-            TextView tv = getView(viewId);
-            tv.setText(text);
-            return this;
-        }
-
-        public RecyclerViewCommonViewHolder setImageResource(int viewId, int resId) {
-            ImageView view = getView(viewId);
-            view.setImageResource(resId);
-            return this;
-        }
-        //...
-        //新增其它通用方法...
     }
 
     /**
@@ -89,13 +39,11 @@ public abstract class RecyclerViewCommonAdapter<T> extends RecyclerView.Adapter<
      * @return A new ViewHolder that holds a View of the given view type.
      */
     @Override
-    public RecyclerViewCommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RVCommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        //Log.e(TAG,"onCreateViewHolder viewType:" + viewType);
         View v = mInflater.inflate(mLayoutId, parent, false);
-        RecyclerViewCommonViewHolder vh = new RecyclerViewCommonViewHolder(mContext, mLayoutId, v);
+        RVCommonViewHolder vh = new RVCommonViewHolder(mLayoutId, v);
         setListener(parent, v, vh);
-        TypedValue typedValue = new TypedValue();
-        mContext.getTheme().resolveAttribute(R.attr.selectableItemBackground, typedValue, true);
-        v.setBackgroundResource(typedValue.resourceId);
         return vh;
     }
 
@@ -114,7 +62,8 @@ public abstract class RecyclerViewCommonAdapter<T> extends RecyclerView.Adapter<
      * @param position The position of the item within the adapter's data set.
      */
     @Override
-    public void onBindViewHolder(RecyclerViewCommonViewHolder holder, int position) {
+    public void onBindViewHolder(RVCommonViewHolder holder, int position) {
+        //Log.e(TAG,"onBindViewHolder position:" + position);
         onBindViewHolder(holder, mDataList.get(position));
     }
 
@@ -123,7 +72,7 @@ public abstract class RecyclerViewCommonAdapter<T> extends RecyclerView.Adapter<
         return mDataList.size();
     }
 
-    private void setListener(final ViewGroup parent, View view, final RecyclerViewCommonViewHolder holder) {
+    protected void setListener(final ViewGroup parent, View view, final RVCommonViewHolder holder) {
         if (mOnItemClickListener != null) {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -159,7 +108,7 @@ public abstract class RecyclerViewCommonAdapter<T> extends RecyclerView.Adapter<
         this.mOnItemLongClickListener = listener;
     }
 
-    public abstract void onBindViewHolder(RecyclerViewCommonViewHolder viewHolder, T data);
+    public abstract void onBindViewHolder(RVCommonViewHolder viewHolder, T data);
 
     /**
      * Interface definition for a callback to be invoked when an item in this
@@ -175,6 +124,50 @@ public abstract class RecyclerViewCommonAdapter<T> extends RecyclerView.Adapter<
      */
     public interface OnItemLongClickListener<T> {
         boolean onItemLongClick(ViewGroup parent, View view, int position, T data);
+    }
+
+    /**
+     * 为每个数据项提供视图引用
+     */
+    public static class RVCommonViewHolder extends RecyclerView.ViewHolder {
+
+        private int mLayoutId;
+        private View mItemView;
+        private SparseArray<View> mViews;
+
+        public RVCommonViewHolder(int layoutId, View itemView) {
+            super(itemView);
+            this.mLayoutId = layoutId;
+            this.mItemView = itemView;
+            this.mViews = new SparseArray<>();
+        }
+
+        public <T extends View> T getView(int viewId) {
+            View view = mViews.get(viewId);
+            if (view == null) {
+                view = mItemView.findViewById(viewId);
+                mViews.put(viewId, view);
+            }
+            return (T) view;
+        }
+
+        public int getLayoutId() {
+            return mLayoutId;
+        }
+
+        public RVCommonViewHolder setText(int viewId, String text) {
+            TextView tv = getView(viewId);
+            tv.setText(text);
+            return this;
+        }
+
+        public RVCommonViewHolder setImageResource(int viewId, int resId) {
+            ImageView view = getView(viewId);
+            view.setImageResource(resId);
+            return this;
+        }
+        //...
+        //新增其它通用方法...
     }
 
 }

@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.frank.sample.SimpleRecyclerViewActivity">
+    tools:context="com.frank.sample.RVMultiTypeActivity">
     <include layout="@layout/toolbar" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 </LinearLayout>

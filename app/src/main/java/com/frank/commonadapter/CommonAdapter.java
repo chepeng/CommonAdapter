@@ -18,13 +18,14 @@ import java.util.List;
  * 只需实现{@link CommonAdapter#onBindViewHolder(CommonAdapter.CommonViewHolder, java.lang.Object)}方法<p/>
  */
 public abstract class CommonAdapter<T> extends BaseAdapter {
-    protected Context mContext;
+
+    private static final String TAG = "CommonAdapter";
+
     protected List<T> mDataList;
     protected LayoutInflater mInflater;
     private int mLayoutId;
 
     public CommonAdapter(Context context, List<T> dataList, int layoutId) {
-        this.mContext = context;
         this.mDataList = dataList;
         mInflater = LayoutInflater.from(context);
         this.mLayoutId = layoutId;
@@ -47,14 +48,16 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        //Log.e(TAG, "getView position:" + position);
         CommonViewHolder viewHolder;
         if (convertView == null) {
             convertView = mInflater.inflate(mLayoutId, parent, false);
-            Log.e("shang", "getView inflate:" + position+"                          "+convertView);
-            viewHolder = new CommonViewHolder(mContext, mLayoutId, convertView, position);
+            //Log.e(TAG, "getView inflate:" + position+"                          "+convertView);
+            viewHolder = new CommonViewHolder(mLayoutId, convertView, position);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (CommonViewHolder) convertView.getTag();
+            viewHolder.mPosition = position;
         }
         onBindViewHolder(viewHolder, getItem(position));
         return convertView;
@@ -65,7 +68,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
     }
 
     public void setDataList(List<T> dataList) {
-        List<T> result = new ArrayList<T>(dataList.size());
+        List<T> result = new ArrayList<>(dataList.size());
         for (T item : dataList) {
             result.add(item);
         }
@@ -85,15 +88,13 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 
     public static class CommonViewHolder {
 
-        private SparseArray<View> mViews;
-        public int mPosition;
-        private View mConvertView;
-        private Context mContext;
         private int mLayoutId;
+        private View mConvertView;
+        public int mPosition;
+        private SparseArray<View> mViews;
 
-        public CommonViewHolder(Context context, int layoutId, View convertView,
+        public CommonViewHolder(int layoutId, View convertView,
                                 int position) {
-            this.mContext = context;
             this.mLayoutId = layoutId;
             this.mConvertView = convertView;
             this.mPosition = position;
@@ -104,7 +105,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
             View view = mViews.get(viewId);
             if (view == null) {
                 view = mConvertView.findViewById(viewId);
-                Log.e("shang", "findViewById:"+viewId+"                          "+view);
+                //Log.e(TAG, "findViewById:"+viewId+"                          "+view);
                 mViews.put(viewId, view);
             }
             return (T) view;
@@ -116,10 +117,6 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 
         public int getLayoutId() {
             return mLayoutId;
-        }
-
-        public Context getContext() {
-            return mContext;
         }
 
         public CommonViewHolder setText(int viewId, String text) {

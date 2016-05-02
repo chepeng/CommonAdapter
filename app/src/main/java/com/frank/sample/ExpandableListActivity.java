@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.frank.commonadapter.CommonAdapter;
-import com.frank.commonadapter.ExpandableListCommonAdapter;
+import com.frank.commonadapter.ELVCommonAdapter;
 import com.frank.commonadapter.R;
 import com.frank.sample.bean.GameBean;
 import com.frank.sample.bean.GameTypeBean;
@@ -85,7 +85,7 @@ public class ExpandableListActivity extends AppCompatActivity {
 
     private ExpandableListView elv_main;
     private List<GameTypeBean> gameTypeBeanList = new ArrayList<>();
-    private ExpandableListCommonAdapter gameTypeBeanAdapter;
+    private ELVCommonAdapter gameTypeBeanAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +101,7 @@ public class ExpandableListActivity extends AppCompatActivity {
             }
         });
         elv_main = (ExpandableListView) findViewById(R.id.elv_main);
-        gameTypeBeanAdapter = new ExpandableListCommonAdapter<GameTypeBean>(this, gameTypeBeanList, R.layout.listitem_game_group, R.layout.listitem_game_child) {
+        gameTypeBeanAdapter = new ELVCommonAdapter<GameTypeBean>(this, gameTypeBeanList, R.layout.listitem_game_group, R.layout.listitem_game_child) {
 
             @Override
             public void onBindGroupViewHolder(int groupPosition, CommonAdapter.CommonViewHolder viewHolder, GameTypeBean groupData) {

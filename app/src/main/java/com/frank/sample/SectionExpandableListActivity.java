@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.ExpandableListView;
 
 import com.frank.commonadapter.CommonAdapter;
-import com.frank.commonadapter.ExpandableListCommonAdapter;
+import com.frank.commonadapter.ELVCommonAdapter;
 import com.frank.commonadapter.R;
-import com.frank.commonadapter.SectionExpandableListAdapter;
+import com.frank.commonadapter.ELVSectionCommonAdapter;
 import com.frank.sample.bean.GameBean;
 import com.frank.sample.bean.GameTypeBean;
 
@@ -20,8 +20,8 @@ public class SectionExpandableListActivity extends AppCompatActivity {
 
     private ExpandableListView elv_main;
     private List<GameTypeBean> gameTypeBeanList = new ArrayList<>();
-    private ExpandableListCommonAdapter mExpandableListCommonAdapter;
-    private SectionExpandableListAdapter mSectionExpandableListAdapter;
+    private ELVCommonAdapter mExpandableListCommonAdapter;
+    private ELVSectionCommonAdapter mSectionExpandableListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +36,7 @@ public class SectionExpandableListActivity extends AppCompatActivity {
             }
         });
         elv_main = (ExpandableListView) findViewById(R.id.elv_main);
-        mExpandableListCommonAdapter = new ExpandableListCommonAdapter<GameTypeBean>(this, gameTypeBeanList, R.layout.listitem_game_group, R.layout.listitem_game) {
+        mExpandableListCommonAdapter = new ELVCommonAdapter<GameTypeBean>(this, gameTypeBeanList, R.layout.listitem_game_group, R.layout.listitem_game) {
             @Override
             public void onBindGroupViewHolder(int groupPosition, CommonAdapter.CommonViewHolder viewHolder, GameTypeBean groupData) {
                 viewHolder.setText(R.id.tv_game_type, groupData.getName());
@@ -58,7 +58,7 @@ public class SectionExpandableListActivity extends AppCompatActivity {
                 return groupData.getGameBeanList().get(childPosition);
             }
         };
-        mSectionExpandableListAdapter = new SectionExpandableListAdapter<GameTypeBean>(this, mExpandableListCommonAdapter, R.layout.listitem_section, R.id.tv_section) {
+        mSectionExpandableListAdapter = new ELVSectionCommonAdapter<GameTypeBean>(this, mExpandableListCommonAdapter, R.layout.listitem_section, R.id.tv_section) {
             @Override
             public String getSectionTitle(GameTypeBean data) {
                 int num = Integer.valueOf(data.getName().substring(data.getName().length() - 1, data.getName().length()));

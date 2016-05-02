@@ -5,36 +5,36 @@
         android:id="@+id/menu_multi_type"
         android:icon="@android:drawable/ic_menu_share"
         android:showAsAction="ifRoom"
-        android:title="多布局类型的ListView"
+        android:title="@string/MultiTypeCommonAdapter"
         tools:ignore="AppCompatResource" />
     <item
         android:id="@+id/menu_expandable"
         android:icon="@android:drawable/ic_dialog_alert"
         android:showAsAction="never"
-        android:title="简单的ExpandableListView"
-        tools:ignore="AppCompatResource" />
-    <item
-        android:id="@+id/menu_with_header"
-        android:icon="@android:drawable/ic_menu_help"
-        android:showAsAction="never"
-        android:title="带头布局的ListView"
+        android:title="@string/ExpandableListAdapter"
         tools:ignore="AppCompatResource" />
     <item
         android:id="@+id/menu_section"
         android:icon="@android:drawable/ic_dialog_alert"
         android:showAsAction="never"
-        android:title="分类的ListView"
+        android:title="@string/SectionAdapter"
         tools:ignore="AppCompatResource" />
     <item
         android:id="@+id/menu_section_expandable"
         android:icon="@android:drawable/ic_dialog_alert"
         android:showAsAction="never"
-        android:title="分类的ExpandableListView"
+        android:title="@string/SectionExpandableListAdapter"
         tools:ignore="AppCompatResource" />
     <item
         android:id="@+id/menu_simple_recyclerview"
         android:icon="@android:drawable/ic_dialog_alert"
         android:showAsAction="never"
-        android:title="简单的RecyclerView"
+        android:title="@string/RVCommonAdapter"
+        tools:ignore="AppCompatResource" />
+    <item
+        android:id="@+id/menu_multi_type_recyclerview"
+        android:icon="@android:drawable/ic_dialog_alert"
+        android:showAsAction="never"
+        android:title="@string/RVMultiTypeCommonAdapter"
         tools:ignore="AppCompatResource" />
 </menu>

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/darker_gray">
+    android:background="@android:color/holo_orange_dark">
     <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@android:drawable/ic_menu_crop"/>
+        android:src="@android:drawable/star_on"/>
     <TextView
         android:id="@+id/tv_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:background="@android:color/darker_gray"
         android:textColor="@android:color/white"
         android:padding="5dp"/>
 </LinearLayout>

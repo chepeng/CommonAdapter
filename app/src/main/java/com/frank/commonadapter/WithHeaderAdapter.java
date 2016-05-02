@@ -16,6 +16,8 @@ import java.util.List;
  */
 public abstract class WithHeaderAdapter<T> extends CommonAdapter<T> {
 
+    private static final String TAG = "WithHeaderAdapter";
+
     private int mHeaderLayoutId;
     private int mItemLayoutId;
 
@@ -62,12 +64,13 @@ public abstract class WithHeaderAdapter<T> extends CommonAdapter<T> {
         int layoutId = position == 0 ? mHeaderLayoutId : mItemLayoutId;
         CommonViewHolder viewHolder;
         if (convertView == null) {
-            Log.e("shang", "getView inflate:" + position+"                          "+convertView);
+            //Log.e(TAG, "getView inflate:" + position+"                          "+convertView);
             convertView = mInflater.inflate(layoutId, parent, false);
-            viewHolder = new CommonViewHolder(mContext, layoutId, convertView, position);
+            viewHolder = new CommonViewHolder(layoutId, convertView, position);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (CommonViewHolder) convertView.getTag();
+            viewHolder.mPosition = position;
         }
         if (position == 0) {
             onBindHeader(viewHolder);

@@ -12,10 +12,11 @@ import java.util.Set;
 
 public abstract class SectionCommonAdapter<T> extends BaseAdapter {
 
+    private static final String TAG = "SectionCommonAdapter";
+
     private static final int TYPE_SECTION = 0;
 
     private LinkedHashMap<String, Integer> mSectionList;
-    private Context mContext;
     protected LayoutInflater mInflater;
     private BaseAdapter mListAdapter;
     private int mSectionLayoutId;
@@ -23,12 +24,11 @@ public abstract class SectionCommonAdapter<T> extends BaseAdapter {
 
     public SectionCommonAdapter(Context context, BaseAdapter listAdapter,
                                 int sectionLayoutId, int sectionTitleId) {
-        this.mContext = context;
-        mInflater = LayoutInflater.from(context);
+        this.mInflater = LayoutInflater.from(context);
         this.mListAdapter = listAdapter;
         this.mSectionLayoutId = sectionLayoutId;
         this.mSectionTitleId = sectionTitleId;
-        mSectionList = new LinkedHashMap<>();
+        this.mSectionList = new LinkedHashMap<>();
         initSections();
     }
 
@@ -85,10 +85,11 @@ public abstract class SectionCommonAdapter<T> extends BaseAdapter {
             case TYPE_SECTION:
                 if(view == null) {
                     view = mInflater.inflate(mSectionLayoutId, parent, false);
-                    viewHolder = new CommonAdapter.CommonViewHolder(mContext, mSectionLayoutId, view, position);
+                    viewHolder = new CommonAdapter.CommonViewHolder(mSectionLayoutId, view, position);
                     view.setTag(viewHolder);
                 } else {
                     viewHolder = (CommonAdapter.CommonViewHolder) view.getTag();
+                    viewHolder.mPosition = position;
                 }
                 break;
             default:

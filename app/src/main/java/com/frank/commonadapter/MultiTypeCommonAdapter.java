@@ -30,6 +30,8 @@ import java.util.List;
  */
 public abstract class MultiTypeCommonAdapter<T> extends CommonAdapter<T> {
 
+    private static final String TAG = "MultiTypeCommonAdapter";
+
     public MultiTypeCommonAdapter(Context context, List<T> dataList) {
         super(context, dataList, -1);
     }
@@ -52,12 +54,13 @@ public abstract class MultiTypeCommonAdapter<T> extends CommonAdapter<T> {
         int layoutId = getLayoutId(position, getItem(position));
         CommonViewHolder viewHolder;
         if (convertView == null) {
-            Log.e("shang", "getView->inflate:" + position);
+            //Log.e(TAG, "getView->inflate:" + position);
             convertView = mInflater.inflate(layoutId, parent, false);
-            viewHolder = new CommonViewHolder(mContext, layoutId, convertView, position);
+            viewHolder = new CommonViewHolder(layoutId, convertView, position);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (CommonViewHolder) convertView.getTag();
+            viewHolder.mPosition = position;
         }
         onBindViewHolder(viewHolder, getItem(position));
         return convertView;

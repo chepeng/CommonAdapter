@@ -10,25 +10,25 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class SectionExpandableListAdapter<T> extends BaseExpandableListAdapter {
+public abstract class ELVSectionCommonAdapter<T> extends BaseExpandableListAdapter {
+
+    private static final String TAG = "ELVSectionCommonAdapter";
 
     private static final int TYPE_SECTION = 0;
 
     private LinkedHashMap<String, Integer> mSectionList;
-    private Context mContext;
     protected LayoutInflater mInflater;
     private BaseExpandableListAdapter mExpandableListAdapter;
     private int mSectionLayoutId;
     private int mSectionTitleId;
 
-    public SectionExpandableListAdapter(Context context, BaseExpandableListAdapter expandableListAdapter,
-                                        int sectionLayoutId, int sectionTitleId) {
-        this.mContext = context;
-        mInflater = LayoutInflater.from(context);
+    public ELVSectionCommonAdapter(Context context, BaseExpandableListAdapter expandableListAdapter,
+                                   int sectionLayoutId, int sectionTitleId) {
+        this.mInflater = LayoutInflater.from(context);
         this.mExpandableListAdapter = expandableListAdapter;
         this.mSectionLayoutId = sectionLayoutId;
         this.mSectionTitleId = sectionTitleId;
-        mSectionList = new LinkedHashMap<>();
+        this.mSectionList = new LinkedHashMap<>();
         initSections();
     }
 
@@ -103,10 +103,11 @@ public abstract class SectionExpandableListAdapter<T> extends BaseExpandableList
             case TYPE_SECTION:
                 if (view == null) {
                     view = mInflater.inflate(mSectionLayoutId, parent, false);
-                    viewHolder = new CommonAdapter.CommonViewHolder(mContext, mSectionLayoutId, view, groupPosition);
+                    viewHolder = new CommonAdapter.CommonViewHolder(mSectionLayoutId, view, groupPosition);
                     view.setTag(viewHolder);
                 } else {
                     viewHolder = (CommonAdapter.CommonViewHolder) view.getTag();
+                    viewHolder.mPosition = groupPosition;
                 }
                 break;
             default:

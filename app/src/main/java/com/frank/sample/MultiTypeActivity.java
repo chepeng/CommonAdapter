@@ -59,7 +59,7 @@ public class MultiTypeActivity extends AppCompatActivity {
             timelineBean.setGameBean(gameBean);
             timelineBeanList.add(timelineBean);
         }
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 10; i++) {
             TimelineBean timelineBean = new TimelineBean();
             VideoBean videoBean = new VideoBean();
             videoBean.setName("video" + i);

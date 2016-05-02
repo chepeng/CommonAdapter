@@ -1,7 +1,6 @@
 package com.frank.commonadapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,24 +12,24 @@ import java.util.List;
  * <p>{@link android.widget.ExpandableListView}的通用适配器。封装了convertView复用及findViewById()，
  * 子类只须实现：
  * <ol>
- * <li>{@link ExpandableListCommonAdapter#onBindGroupViewHolder(int, CommonAdapter.CommonViewHolder, Object)}</li>
- * <li>{@link ExpandableListCommonAdapter#onBindChildViewHolder(int, int, CommonAdapter.CommonViewHolder, Object)}</li>
- * <li>{@link ExpandableListCommonAdapter#getChildrenCount(int, Object)}</li>
- * <li>{@link ExpandableListCommonAdapter#getChild(int, int, Object)}</li>
+ * <li>{@link ELVCommonAdapter#onBindGroupViewHolder(int, CommonAdapter.CommonViewHolder, Object)}</li>
+ * <li>{@link ELVCommonAdapter#onBindChildViewHolder(int, int, CommonAdapter.CommonViewHolder, Object)}</li>
+ * <li>{@link ELVCommonAdapter#getChildrenCount(int, Object)}</li>
+ * <li>{@link ELVCommonAdapter#getChild(int, int, Object)}</li>
  * </ol>
  * </p>
  * @param <T>
  */
-public abstract class ExpandableListCommonAdapter<T> extends BaseExpandableListAdapter {
+public abstract class ELVCommonAdapter<T> extends BaseExpandableListAdapter {
 
-    private Context mContext;
+    private static final String TAG = "ELVCommonAdapter";
+
     private List<T> mDataList;
     private LayoutInflater mInflater;
     private int mGroupLayoutId;
     private int mChildLayoutId;
 
-    public ExpandableListCommonAdapter(Context context, List<T> dataList, int groupLayoutId, int childLayoutId) {
-        this.mContext = context;
+    public ELVCommonAdapter(Context context, List<T> dataList, int groupLayoutId, int childLayoutId) {
         this.mDataList = dataList;
         this.mInflater = LayoutInflater.from(context);
         this.mGroupLayoutId = groupLayoutId;
@@ -77,11 +76,12 @@ public abstract class ExpandableListCommonAdapter<T> extends BaseExpandableListA
         CommonAdapter.CommonViewHolder viewHolder;
         if (convertView == null) {
             convertView = mInflater.inflate(mGroupLayoutId, parent, false);
-            Log.e("shang", "getGroupView inflate:" + groupPosition+"                          "+convertView);
-            viewHolder = new CommonAdapter.CommonViewHolder(mContext, mGroupLayoutId, convertView, groupPosition);
+            //Log.e(TAG, "getGroupView inflate:" + groupPosition+"                          "+convertView);
+            viewHolder = new CommonAdapter.CommonViewHolder(mGroupLayoutId, convertView, groupPosition);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (CommonAdapter.CommonViewHolder) convertView.getTag();
+            viewHolder.mPosition = groupPosition;
         }
         onBindGroupViewHolder(groupPosition, viewHolder, getGroup(groupPosition));
         return convertView;
@@ -92,11 +92,12 @@ public abstract class ExpandableListCommonAdapter<T> extends BaseExpandableListA
         CommonAdapter.CommonViewHolder viewHolder;
         if (convertView == null) {
             convertView = mInflater.inflate(mChildLayoutId, parent, false);
-            Log.e("shang", "getChildView inflate:" + groupPosition+"-"+childPosition+"                          "+convertView);
-            viewHolder = new CommonAdapter.CommonViewHolder(mContext, mChildLayoutId, convertView, groupPosition);
+            //Log.e(TAG, "getChildView inflate:" + groupPosition+"-"+childPosition+"                          "+convertView);
+            viewHolder = new CommonAdapter.CommonViewHolder(mChildLayoutId, convertView, groupPosition);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (CommonAdapter.CommonViewHolder) convertView.getTag();
+            viewHolder.mPosition = childPosition;
         }
         onBindChildViewHolder(groupPosition, childPosition, viewHolder, getGroup(groupPosition));
         return convertView;

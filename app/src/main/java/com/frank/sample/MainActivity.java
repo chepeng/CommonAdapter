@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 40; i++) {
             GameBean gameBean = new GameBean();
             gameBean.setName("game" + i);
-            gameBean.setImg_url(String.valueOf(android.R.drawable.ic_btn_speak_now));
+            gameBean.setImg_url(String.valueOf(android.R.drawable.presence_audio_online));
             gameBeanList.add(gameBean);
         }
         gameBeanAdapter.notifyDataSetChanged();
@@ -77,10 +78,6 @@ public class MainActivity extends AppCompatActivity {
                     intent = new Intent(MainActivity.this, MultiTypeActivity.class);
                     MainActivity.this.startActivity(intent);
                     break;
-                case R.id.menu_with_header:
-                    intent = new Intent(MainActivity.this, WithHeaderActivity.class);
-                    MainActivity.this.startActivity(intent);
-                    break;
                 case R.id.menu_expandable:
                     intent = new Intent(MainActivity.this, ExpandableListActivity.class);
                     MainActivity.this.startActivity(intent);
@@ -94,7 +91,11 @@ public class MainActivity extends AppCompatActivity {
                     MainActivity.this.startActivity(intent);
                     break;
                 case R.id.menu_simple_recyclerview:
-                    intent = new Intent(MainActivity.this, SimpleRecyclerViewActivity.class);
+                    intent = new Intent(MainActivity.this, RVSimpleActivity.class);
+                    MainActivity.this.startActivity(intent);
+                    break;
+                case R.id.menu_multi_type_recyclerview:
+                    intent = new Intent(MainActivity.this, RVMultiTypeActivity.class);
                     MainActivity.this.startActivity(intent);
                     break;
                 default:

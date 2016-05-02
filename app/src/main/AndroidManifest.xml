@@ -19,20 +19,21 @@
         </activity>
         <activity
             android:name="com.frank.sample.MultiTypeActivity"
-            android:label="@string/MultiTypeAdapter" />
-        <activity
-            android:name="com.frank.sample.WithHeaderActivity"
-            android:label="@string/WithHeaderAdapter" />
+            android:label="@string/MultiTypeCommonAdapter" />
         <activity
             android:name="com.frank.sample.ExpandableListActivity"
             android:label="@string/ExpandableListAdapter" />
         <activity
             android:name="com.frank.sample.SectionActivity"
             android:label="@string/SectionAdapter" />
-        <activity android:name="com.frank.sample.SectionExpandableListActivity"
+        <activity
+            android:name="com.frank.sample.SectionExpandableListActivity"
             android:label="@string/SectionExpandableListAdapter" />
-        <activity android:name="com.frank.sample.SimpleRecyclerViewActivity"
-            android:label="@string/RecyclerViewCommonAdapter" />
+        <activity
+            android:name="com.frank.sample.RVSimpleActivity"
+            android:label="@string/RVCommonAdapter" />
+        <activity android:name="com.frank.sample.RVMultiTypeActivity"
+            android:label="@string/RVMultiTypeCommonAdapter" />
     </application>
 
 </manifest>
