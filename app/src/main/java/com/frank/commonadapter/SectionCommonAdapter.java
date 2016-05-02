@@ -1,14 +1,12 @@
 package com.frank.commonadapter;
 
 import android.content.Context;
+import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
 
 public abstract class SectionCommonAdapter<T> extends BaseAdapter {
 
@@ -16,7 +14,7 @@ public abstract class SectionCommonAdapter<T> extends BaseAdapter {
 
     private static final int TYPE_SECTION = 0;
 
-    private LinkedHashMap<String, Integer> mSectionList;
+    private SparseArray<String> mSectionList;
     protected LayoutInflater mInflater;
     private BaseAdapter mListAdapter;
     private int mSectionLayoutId;
@@ -28,7 +26,7 @@ public abstract class SectionCommonAdapter<T> extends BaseAdapter {
         this.mListAdapter = listAdapter;
         this.mSectionLayoutId = sectionLayoutId;
         this.mSectionTitleId = sectionTitleId;
-        this.mSectionList = new LinkedHashMap<>();
+        this.mSectionList = new SparseArray<>();
         initSections();
     }
 
@@ -55,9 +53,11 @@ public abstract class SectionCommonAdapter<T> extends BaseAdapter {
     @Override
     public int getItemViewType(int position) {
         int positionInCustomAdapter = getDataPosition(position);
-        return mSectionList.values().contains(position) ?
-                TYPE_SECTION :
-                mListAdapter.getItemViewType(positionInCustomAdapter) + 1;
+        if (mSectionList.get(position) == null) {
+            return mListAdapter.getItemViewType(positionInCustomAdapter) + 1;
+        } else {
+            return TYPE_SECTION;
+        }
     }
 
     @Override
@@ -67,7 +67,8 @@ public abstract class SectionCommonAdapter<T> extends BaseAdapter {
 
     @Override
     public boolean isEnabled(int position) {
-        return !mSectionList.values().contains(position) && mListAdapter.isEnabled(getDataPosition(position));
+        int positionInCustomAdapter = getDataPosition(position);
+        return mSectionList.get(position) == null && mListAdapter.isEnabled(positionInCustomAdapter);
     }
 
     @Override
@@ -81,9 +82,11 @@ public abstract class SectionCommonAdapter<T> extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         CommonAdapter.CommonViewHolder viewHolder = null;
-        switch (getItemViewType(position)) {
+        int itemViewType = getItemViewType(position);
+        switch (itemViewType) {
             case TYPE_SECTION:
                 if(view == null) {
+                    Log.e(TAG, "inflate position:" + position);
                     view = mInflater.inflate(mSectionLayoutId, parent, false);
                     viewHolder = new CommonAdapter.CommonViewHolder(mSectionLayoutId, view, position);
                     view.setTag(viewHolder);
@@ -109,18 +112,25 @@ public abstract class SectionCommonAdapter<T> extends BaseAdapter {
         mSectionList.clear();
         for(int i = 0; i < n; i++) {
             String sectionName = getSectionTitle((T)mListAdapter.getItem(i));
-            if(!mSectionList.containsKey(sectionName)) {
-                mSectionList.put(sectionName, i + nSections);
-                nSections ++;
+            int j;
+            for (j = 0; j < mSectionList.size(); j ++) {
+                String section = mSectionList.valueAt(j);
+                if (section != null && section.equals(sectionName)) {
+                    break;
+                }
+            }
+            if (j >= mSectionList.size()) {
+                mSectionList.put(i+nSections, sectionName);
+                nSections++;
             }
         }
     }
 
     private int getDataPosition(int position) {
         int nSections = 0;
-        Set<Map.Entry<String, Integer>> entrySet = mSectionList.entrySet();
-        for(Map.Entry<String, Integer> entry : entrySet) {
-            if(entry.getValue() < position) {
+        for (int j = 0; j < mSectionList.size(); j ++) {
+            int key = mSectionList.keyAt(j);
+            if (key < position) {
                 nSections++;
             }
         }
@@ -128,15 +138,7 @@ public abstract class SectionCommonAdapter<T> extends BaseAdapter {
     }
 
     private String getSectionTitleInPosition(int position) {
-        String title = null;
-        Set<Map.Entry<String, Integer>> entrySet = mSectionList.entrySet();
-        for(Map.Entry<String, Integer> entry : entrySet) {
-            if(entry.getValue() == position) {
-                title = entry.getKey();
-                break;
-            }
-        }
-        return title;
+        return mSectionList.get(position);
     }
 
     public abstract String getSectionTitle(T data);

@@ -1,6 +1,7 @@
 package com.frank.commonadapter;
 
 import android.content.Context;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ public abstract class ELVSectionCommonAdapter<T> extends BaseExpandableListAdapt
 
     private static final int TYPE_SECTION = 0;
 
-    private LinkedHashMap<String, Integer> mSectionList;
+    private SparseArray<String> mSectionList;
     protected LayoutInflater mInflater;
     private BaseExpandableListAdapter mExpandableListAdapter;
     private int mSectionLayoutId;
@@ -28,7 +29,7 @@ public abstract class ELVSectionCommonAdapter<T> extends BaseExpandableListAdapt
         this.mExpandableListAdapter = expandableListAdapter;
         this.mSectionLayoutId = sectionLayoutId;
         this.mSectionTitleId = sectionTitleId;
-        this.mSectionList = new LinkedHashMap<>();
+        this.mSectionList = new SparseArray<>();
         initSections();
     }
 
@@ -40,9 +41,11 @@ public abstract class ELVSectionCommonAdapter<T> extends BaseExpandableListAdapt
     @Override
     public int getChildrenCount(int groupPosition) {
         int positionInCustomAdapter = getDataPosition(groupPosition);
-        return mSectionList.values().contains(groupPosition) ?
-                0 :
-                mExpandableListAdapter.getChildrenCount(positionInCustomAdapter);
+        if (mSectionList.get(groupPosition) == null) {
+            return mExpandableListAdapter.getChildrenCount(positionInCustomAdapter);
+        } else {
+            return 0;
+        }
     }
 
     @Override
@@ -68,19 +71,16 @@ public abstract class ELVSectionCommonAdapter<T> extends BaseExpandableListAdapt
     @Override
     public int getGroupType(int groupPosition) {
         int positionInCustomAdapter = getDataPosition(groupPosition);
-        return mSectionList.values().contains(groupPosition) ?
-                TYPE_SECTION :
-                mExpandableListAdapter.getGroupType(positionInCustomAdapter) + 1;
+        if (mSectionList.get(groupPosition) == null) {
+            return mExpandableListAdapter.getGroupType(positionInCustomAdapter) + 1;
+        } else {
+            return TYPE_SECTION;
+        }
     }
 
     @Override
     public int getGroupTypeCount() {
         return mExpandableListAdapter.getGroupTypeCount() + 1;
-    }
-
-    @Override
-    public boolean hasStableIds() {
-        return false;
     }
 
     @Override
@@ -99,7 +99,8 @@ public abstract class ELVSectionCommonAdapter<T> extends BaseExpandableListAdapt
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         View view = convertView;
         CommonAdapter.CommonViewHolder viewHolder = null;
-        switch (getGroupType(groupPosition)) {
+        int itemViewType = getGroupType(groupPosition);
+        switch (itemViewType) {
             case TYPE_SECTION:
                 if (view == null) {
                     view = mInflater.inflate(mSectionLayoutId, parent, false);
@@ -126,19 +127,21 @@ public abstract class ELVSectionCommonAdapter<T> extends BaseExpandableListAdapt
         return mExpandableListAdapter.getChildView(getDataPosition(groupPosition), childPosition, isLastChild, convertView, parent);
     }
 
-    @Override
-    public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return true;
-    }
-
     private void initSections() {
         int n = mExpandableListAdapter.getGroupCount();
         int nSections = 0;
         mSectionList.clear();
-        for (int i = 0; i < n; i++) {
+        for(int i = 0; i < n; i++) {
             String sectionName = getSectionTitle((T) mExpandableListAdapter.getGroup(i));
-            if (!mSectionList.containsKey(sectionName)) {
-                mSectionList.put(sectionName, i + nSections);
+            int j;
+            for (j = 0; j < mSectionList.size(); j ++) {
+                String section = mSectionList.valueAt(j);
+                if (section != null && section.equals(sectionName)) {
+                    break;
+                }
+            }
+            if (j >= mSectionList.size()) {
+                mSectionList.put(i+nSections, sectionName);
                 nSections++;
             }
         }
@@ -146,9 +149,9 @@ public abstract class ELVSectionCommonAdapter<T> extends BaseExpandableListAdapt
 
     private int getDataPosition(int position) {
         int nSections = 0;
-        Set<Map.Entry<String, Integer>> entrySet = mSectionList.entrySet();
-        for (Map.Entry<String, Integer> entry : entrySet) {
-            if (entry.getValue() < position) {
+        for (int j = 0; j < mSectionList.size(); j ++) {
+            int key = mSectionList.keyAt(j);
+            if (key < position) {
                 nSections++;
             }
         }
@@ -156,15 +159,7 @@ public abstract class ELVSectionCommonAdapter<T> extends BaseExpandableListAdapt
     }
 
     private String getSectionTitleInPosition(int position) {
-        String title = null;
-        Set<Map.Entry<String, Integer>> entrySet = mSectionList.entrySet();
-        for (Map.Entry<String, Integer> entry : entrySet) {
-            if (entry.getValue() == position) {
-                title = entry.getKey();
-                break;
-            }
-        }
-        return title;
+        return mSectionList.get(position);
     }
 
     public abstract String getSectionTitle(T data);
