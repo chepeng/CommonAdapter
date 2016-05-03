@@ -32,8 +32,11 @@
         <activity
             android:name="com.frank.sample.RVSimpleActivity"
             android:label="@string/RVCommonAdapter" />
-        <activity android:name="com.frank.sample.RVMultiTypeActivity"
+        <activity
+            android:name="com.frank.sample.RVMultiTypeActivity"
             android:label="@string/RVMultiTypeCommonAdapter" />
+        <activity android:name="com.frank.sample.RVSectionActivity"
+            android:label="@string/RVSectionCommonAdapter"/>
     </application>
 
 </manifest>

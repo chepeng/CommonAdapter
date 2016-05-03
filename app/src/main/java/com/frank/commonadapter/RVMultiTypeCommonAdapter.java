@@ -19,7 +19,7 @@ public abstract class RVMultiTypeCommonAdapter<T> extends RVCommonAdapter<T> {
         //Log.e(TAG,"onCreateViewHolder viewType:" + viewType);
         View v = mInflater.inflate(viewType, parent, false);
         RVCommonViewHolder vh = new RVCommonViewHolder(viewType, v);
-        setListener(parent, v, vh);
+        setListener(parent, viewType, v, vh);
         return vh;
     }
 
@@ -31,8 +31,9 @@ public abstract class RVMultiTypeCommonAdapter<T> extends RVCommonAdapter<T> {
 
     /**
      * 返回布局文件id(由position或data.getType()决定具体返回值）
+     *
      * @param position position
-     * @param data 数据实体
+     * @param data     数据实体
      * @return 布局文件id
      */
     public abstract int getLayoutId(int position, T data);

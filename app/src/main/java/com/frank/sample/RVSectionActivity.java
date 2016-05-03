@@ -14,21 +14,22 @@ import android.widget.Toast;
 import com.frank.commonadapter.DividerItemDecoration;
 import com.frank.commonadapter.R;
 import com.frank.commonadapter.RVCommonAdapter;
+import com.frank.commonadapter.RVSectionCommonAdapter;
 import com.frank.sample.bean.GameBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RVSimpleActivity extends AppCompatActivity {
+public class RVSectionActivity extends AppCompatActivity {
 
     RecyclerView rv_1;
     List<GameBean> gameBeanList = new ArrayList<>();
     RVCommonAdapter<GameBean> mRVCommonAdapter;
-
+    RVSectionCommonAdapter<GameBean> mSectionCommonAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rvsimple);
+        setContentView(R.layout.activity_rvsection);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getTitle());
         setSupportActionBar(toolbar);
@@ -55,21 +56,32 @@ public class RVSimpleActivity extends AppCompatActivity {
         mRVCommonAdapter.setOnItemClickListener(new RVCommonAdapter.OnItemClickListener<GameBean>() {
             @Override
             public void onItemClick(ViewGroup parent, View view, int position) {
-                Toast.makeText(RVSimpleActivity.this,""+position,Toast.LENGTH_SHORT).show();
+                int dataPosition = mSectionCommonAdapter.getDataPosition(position);
+                Toast.makeText(RVSectionActivity.this,""+dataPosition+","+gameBeanList.get(dataPosition).getName(),Toast.LENGTH_SHORT).show();
             }
         });
-        rv_1.setAdapter(mRVCommonAdapter);
+        mSectionCommonAdapter = new RVSectionCommonAdapter<GameBean>(this, mRVCommonAdapter, R.layout.listitem_section, R.id.tv_section) {
+            @Override
+            public String getSectionTitle(GameBean data) {
+                if (data.getName().startsWith("game1")) {
+                    return "section 1";
+                } else {
+                    return "section";
+                }
+            }
+        };
+        rv_1.setAdapter(mSectionCommonAdapter);
         getData();
     }
 
     private void getData() {
-        for (int i = 0; i < 40; i++) {
+        for (int i = 10; i < 40; i++) {
             GameBean gameBean = new GameBean();
             gameBean.setName("game" + i);
             gameBean.setImg_url(String.valueOf(android.R.drawable.presence_audio_online));
             gameBeanList.add(gameBean);
         }
-        mRVCommonAdapter.notifyDataSetChanged();
+        mSectionCommonAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -88,12 +100,12 @@ public class RVSimpleActivity extends AppCompatActivity {
                     gameBean.setName("new" + count);
                     gameBean.setImg_url(String.valueOf(R.mipmap.ic_launcher));
                     gameBeanList.add(1, gameBean);
-                    mRVCommonAdapter.notifyItemInserted(1);
+                    mSectionCommonAdapter.notifyDataSetChanged();
                     count++;
                     break;
                 case R.id.menu_delete:
                     gameBeanList.remove(2);
-                    mRVCommonAdapter.notifyItemRemoved(2);
+                    mSectionCommonAdapter.notifyDataSetChanged();
                     break;
                 default:
                     break;
@@ -101,4 +113,5 @@ public class RVSimpleActivity extends AppCompatActivity {
             return true;
         }
     };
+
 }

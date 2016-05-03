@@ -7,10 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
-
 public abstract class ELVSectionCommonAdapter<T> extends BaseExpandableListAdapter {
 
     private static final String TAG = "ELVSectionCommonAdapter";
@@ -89,6 +85,16 @@ public abstract class ELVSectionCommonAdapter<T> extends BaseExpandableListAdapt
     }
 
     @Override
+    public boolean hasStableIds() {
+        return false;
+    }
+
+    @Override
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
+        return true;
+    }
+
+    @Override
     public void notifyDataSetChanged() {
         mExpandableListAdapter.notifyDataSetChanged();
         initSections();
@@ -147,7 +153,7 @@ public abstract class ELVSectionCommonAdapter<T> extends BaseExpandableListAdapt
         }
     }
 
-    private int getDataPosition(int position) {
+    public int getDataPosition(int position) {
         int nSections = 0;
         for (int j = 0; j < mSectionList.size(); j ++) {
             int key = mSectionList.keyAt(j);

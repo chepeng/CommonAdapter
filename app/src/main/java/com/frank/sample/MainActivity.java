@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -96,6 +95,10 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.menu_multi_type_recyclerview:
                     intent = new Intent(MainActivity.this, RVMultiTypeActivity.class);
+                    MainActivity.this.startActivity(intent);
+                    break;
+                case R.id.menu_section_recyclerview:
+                    intent = new Intent(MainActivity.this, RVSectionActivity.class);
                     MainActivity.this.startActivity(intent);
                     break;
                 default:

@@ -43,7 +43,7 @@ public abstract class RVCommonAdapter<T> extends RecyclerView.Adapter<RVCommonAd
         //Log.e(TAG,"onCreateViewHolder viewType:" + viewType);
         View v = mInflater.inflate(mLayoutId, parent, false);
         RVCommonViewHolder vh = new RVCommonViewHolder(mLayoutId, v);
-        setListener(parent, v, vh);
+        setListener(parent, viewType, v, vh);
         return vh;
     }
 
@@ -72,12 +72,19 @@ public abstract class RVCommonAdapter<T> extends RecyclerView.Adapter<RVCommonAd
         return mDataList.size();
     }
 
-    protected void setListener(final ViewGroup parent, View view, final RVCommonViewHolder holder) {
+    public boolean isEnabled(int viewType) {
+        return true;
+    }
+
+    protected void setListener(final ViewGroup parent, int viewType, View view, final RVCommonViewHolder holder) {
+        if (!isEnabled(viewType)) {
+            return;
+        }
         if (mOnItemClickListener != null) {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(parent, v, holder.getAdapterPosition(), mDataList.get(holder.getAdapterPosition()));
+                    mOnItemClickListener.onItemClick(parent, v, holder.getAdapterPosition());
                 }
             });
         }
@@ -85,7 +92,7 @@ public abstract class RVCommonAdapter<T> extends RecyclerView.Adapter<RVCommonAd
             view.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    mOnItemLongClickListener.onItemLongClick(parent, v, holder.getAdapterPosition(), mDataList.get(holder.getAdapterPosition()));
+                    mOnItemLongClickListener.onItemLongClick(parent, v, holder.getAdapterPosition());
                     return false;
                 }
             });
@@ -115,7 +122,7 @@ public abstract class RVCommonAdapter<T> extends RecyclerView.Adapter<RVCommonAd
      * RecyclerView has been clicked.
      */
     public interface OnItemClickListener<T> {
-        void onItemClick(ViewGroup parent, View view, int position, T data);
+        void onItemClick(ViewGroup parent, View view, int position);
     }
 
     /**
@@ -123,7 +130,7 @@ public abstract class RVCommonAdapter<T> extends RecyclerView.Adapter<RVCommonAd
      * view has been clicked and held.
      */
     public interface OnItemLongClickListener<T> {
-        boolean onItemLongClick(ViewGroup parent, View view, int position, T data);
+        boolean onItemLongClick(ViewGroup parent, View view, int position);
     }
 
     /**

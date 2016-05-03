@@ -10,31 +10,37 @@
     <item
         android:id="@+id/menu_expandable"
         android:icon="@android:drawable/ic_dialog_alert"
-        android:showAsAction="never"
+        android:showAsAction="ifRoom"
         android:title="@string/ExpandableListAdapter"
         tools:ignore="AppCompatResource" />
     <item
         android:id="@+id/menu_section"
         android:icon="@android:drawable/ic_dialog_alert"
-        android:showAsAction="never"
+        android:showAsAction="ifRoom"
         android:title="@string/SectionAdapter"
         tools:ignore="AppCompatResource" />
     <item
         android:id="@+id/menu_section_expandable"
         android:icon="@android:drawable/ic_dialog_alert"
-        android:showAsAction="never"
+        android:showAsAction="ifRoom"
         android:title="@string/SectionExpandableListAdapter"
         tools:ignore="AppCompatResource" />
     <item
         android:id="@+id/menu_simple_recyclerview"
         android:icon="@android:drawable/ic_dialog_alert"
-        android:showAsAction="never"
+        android:showAsAction="ifRoom"
         android:title="@string/RVCommonAdapter"
         tools:ignore="AppCompatResource" />
     <item
         android:id="@+id/menu_multi_type_recyclerview"
         android:icon="@android:drawable/ic_dialog_alert"
-        android:showAsAction="never"
+        android:showAsAction="ifRoom"
         android:title="@string/RVMultiTypeCommonAdapter"
+        tools:ignore="AppCompatResource" />
+    <item
+        android:id="@+id/menu_section_recyclerview"
+        android:icon="@android:drawable/ic_dialog_alert"
+        android:showAsAction="ifRoom"
+        android:title="@string/RVSectionCommonAdapter"
         tools:ignore="AppCompatResource" />
 </menu>

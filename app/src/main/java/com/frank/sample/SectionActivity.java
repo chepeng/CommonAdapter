@@ -24,7 +24,7 @@ public class SectionActivity extends AppCompatActivity {
     ListView listView;
     List<TimelineBean> timelineBeanList = new ArrayList<>();
     MultiTypeCommonAdapter<TimelineBean> timelineBeanAdapter;
-    SectionCommonAdapter<TimelineBean> sectionCommonAdapter;
+    SectionCommonAdapter<TimelineBean> mSectionCommonAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class SectionActivity extends AppCompatActivity {
         });
         listView = (ListView) findViewById(R.id.lv_1);
         timelineBeanAdapter = new MultiTypeAdapter(this, timelineBeanList);
-        sectionCommonAdapter = new SectionCommonAdapter<TimelineBean>(this, timelineBeanAdapter, R.layout.listitem_section, R.id.tv_section) {
+        mSectionCommonAdapter = new SectionCommonAdapter<TimelineBean>(this, timelineBeanAdapter, R.layout.listitem_section, R.id.tv_section) {
             @Override
             public String getSectionTitle(TimelineBean data) {
                 if (TimelineBean.TYPE_GAME.equals(data.getEventType())) {
@@ -51,11 +51,12 @@ public class SectionActivity extends AppCompatActivity {
                 }
             }
         };
-        listView.setAdapter(sectionCommonAdapter);
+        listView.setAdapter(mSectionCommonAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(SectionActivity.this,""+position,Toast.LENGTH_SHORT).show();
+                int dataPosition = mSectionCommonAdapter.getDataPosition(position);
+                Toast.makeText(SectionActivity.this,""+dataPosition,Toast.LENGTH_SHORT).show();
             }
         });
         getData();
@@ -81,6 +82,6 @@ public class SectionActivity extends AppCompatActivity {
             timelineBean.setVideoBean(videoBean);
             timelineBeanList.add(timelineBean);
         }
-        sectionCommonAdapter.notifyDataSetChanged();
+        mSectionCommonAdapter.notifyDataSetChanged();
     }
 }

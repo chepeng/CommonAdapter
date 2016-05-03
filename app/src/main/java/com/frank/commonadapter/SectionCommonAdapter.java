@@ -1,7 +1,6 @@
 package com.frank.commonadapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +36,7 @@ public abstract class SectionCommonAdapter<T> extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return  mListAdapter.getItem(getDataPosition(position));
+        return mListAdapter.getItem(getDataPosition(position));
     }
 
     @Override
@@ -85,8 +84,8 @@ public abstract class SectionCommonAdapter<T> extends BaseAdapter {
         int itemViewType = getItemViewType(position);
         switch (itemViewType) {
             case TYPE_SECTION:
-                if(view == null) {
-                    Log.e(TAG, "inflate position:" + position);
+                if (view == null) {
+                    //Log.e(TAG, "inflate position:" + position);
                     view = mInflater.inflate(mSectionLayoutId, parent, false);
                     viewHolder = new CommonAdapter.CommonViewHolder(mSectionLayoutId, view, position);
                     view.setTag(viewHolder);
@@ -99,7 +98,7 @@ public abstract class SectionCommonAdapter<T> extends BaseAdapter {
                 view = mListAdapter.getView(getDataPosition(position), convertView, parent);
                 break;
         }
-        if(viewHolder != null) {
+        if (viewHolder != null) {
             String sectionName = getSectionTitleInPosition(position);
             viewHolder.setText(mSectionTitleId, sectionName);
         }
@@ -110,25 +109,25 @@ public abstract class SectionCommonAdapter<T> extends BaseAdapter {
         int n = mListAdapter.getCount();
         int nSections = 0;
         mSectionList.clear();
-        for(int i = 0; i < n; i++) {
-            String sectionName = getSectionTitle((T)mListAdapter.getItem(i));
+        for (int i = 0; i < n; i++) {
+            String sectionName = getSectionTitle((T) mListAdapter.getItem(i));
             int j;
-            for (j = 0; j < mSectionList.size(); j ++) {
+            for (j = 0; j < mSectionList.size(); j++) {
                 String section = mSectionList.valueAt(j);
                 if (section != null && section.equals(sectionName)) {
                     break;
                 }
             }
             if (j >= mSectionList.size()) {
-                mSectionList.put(i+nSections, sectionName);
+                mSectionList.put(i + nSections, sectionName);
                 nSections++;
             }
         }
     }
 
-    private int getDataPosition(int position) {
+    public int getDataPosition(int position) {
         int nSections = 0;
-        for (int j = 0; j < mSectionList.size(); j ++) {
+        for (int j = 0; j < mSectionList.size(); j++) {
             int key = mSectionList.keyAt(j);
             if (key < position) {
                 nSections++;

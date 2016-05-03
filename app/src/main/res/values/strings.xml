@@ -9,4 +9,5 @@
     <string name="SectionExpandableListAdapter">SectionExpandableListAdapter</string>
     <string name="RVCommonAdapter">RVCommonAdapter</string>
     <string name="RVMultiTypeCommonAdapter">RVMultiTypeCommonAdapter</string>
+    <string name="RVSectionCommonAdapter">RVSectionCommonAdapter</string>
 </resources>

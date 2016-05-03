@@ -1,13 +1,13 @@
 package com.frank.sample;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.frank.commonadapter.DividerItemDecoration;
 import com.frank.commonadapter.R;
@@ -74,8 +74,8 @@ public class RVMultiTypeActivity extends AppCompatActivity {
         };
         mRVMultiTypeCommonAdapter.setOnItemClickListener(new RVCommonAdapter.OnItemClickListener<TimelineBean>() {
             @Override
-            public void onItemClick(ViewGroup parent, View view, int position, TimelineBean data) {
-                Log.e("shang", view+","+position+","+data.getEventType());
+            public void onItemClick(ViewGroup parent, View view, int position) {
+                Toast.makeText(RVMultiTypeActivity.this,""+position,Toast.LENGTH_SHORT).show();
             }
         });
         rv_1.setAdapter(mRVMultiTypeCommonAdapter);
