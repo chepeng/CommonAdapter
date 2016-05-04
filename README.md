@@ -16,7 +16,7 @@ Include:
 
 How do I use it?
 ----------------
-For more information please see the Wiki page.
+For more information please see the [Wiki](https://github.com/shangmingchao/CommonAdapter/wiki) page.
 
 Thanks
 ------
