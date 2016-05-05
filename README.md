@@ -21,5 +21,6 @@ For more information please see the [Wiki](https://github.com/shangmingchao/Comm
 
 Thanks
 ------
+- [hongyangAndroid/baseAdapter](https://github.com/hongyangAndroid/baseAdapter)
 - [JoanZapata/base-adapter-helper](https://github.com/JoanZapata/base-adapter-helper)
 - [ragunathjawahar/simple-section-adapter](https://github.com/ragunathjawahar/simple-section-adapter)
