@@ -68,6 +68,14 @@ public class SectionExpandableListActivity extends AppCompatActivity {
                     return "Section 2";
                 }
             }
+
+            @Override
+            public void onSetSectionTitle(View sectionView, String sectionTitle, CommonAdapter.CommonViewHolder viewHolder, int position) {
+                if (position == 0) {
+                    sectionTitle = sectionTitle + "->";
+                }
+                super.onSetSectionTitle(sectionView, sectionTitle, viewHolder, position);
+            }
         };
         elv_main.setAdapter(mSectionExpandableListAdapter);
         getData();

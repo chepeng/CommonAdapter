@@ -8,12 +8,12 @@ Include:
 
  * CommonAdapter:------------------for `ListView/GridView` that has only `one` type of item view.
  * MultiTypeCommonAdapter:-------for `ListView/GridView` that has `multiple` types of item view.
- * SectionCommonAdapter:----------for `ListView/GridView` that has `classified` item view.
+ * SectionCommonAdapter:----------for `ListView/GridView` that has `segmented` item view.
  * ELVCommonAdapter:--------------for `ExpandableListView` that has only `one` type of group view.
- * ELVSectionCommonAdapter:------for `ExpandableListView` that has `classified` group view.
+ * ELVSectionCommonAdapter:------for `ExpandableListView` that has `segmented` group view.
  * RVCommonAdapter:---------------for `RecyclerView` that has only `one` type of item view.
  * RVMultiTypeCommonAdapter:----for `RecyclerView` that has `multiple` types of item view.
- * RVSectionCommonAdapter:-------for `RecyclerView` that has `classified` item view.
+ * RVSectionCommonAdapter:-------for `RecyclerView` that has `segmented` item view.
 
 How do I use it?
 ----------------

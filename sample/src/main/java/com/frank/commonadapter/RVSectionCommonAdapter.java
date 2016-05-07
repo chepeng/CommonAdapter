@@ -75,12 +75,16 @@ public abstract class RVSectionCommonAdapter<T> extends RecyclerView.Adapter<RVC
     @Override
     public void onBindViewHolder(RVCommonAdapter.RVCommonViewHolder holder, int position) {
         //Log.e(TAG, "onBindViewHolder position:" + position);
-        String sectionName = mSectionList.get(position);
-        if (sectionName != null) {
-            holder.setText(mSectionTitleId, sectionName);
+        String sectionTitle = mSectionList.get(position);
+        if (sectionTitle != null) {
+            onSetSectionTitle(holder.itemView, sectionTitle, holder, position);
         } else {
             mRecyclerViewAdapter.onBindViewHolder(holder, getDataPosition(position));
         }
+    }
+
+    public void onSetSectionTitle(View sectionView, String sectionTitle, RVCommonAdapter.RVCommonViewHolder viewHolder, int position) {
+        viewHolder.setText(mSectionTitleId, sectionTitle);
     }
 
     @Override
