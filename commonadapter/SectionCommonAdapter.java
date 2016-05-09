@@ -99,10 +99,14 @@ public abstract class SectionCommonAdapter<T> extends BaseAdapter {
                 break;
         }
         if (viewHolder != null) {
-            String sectionName = getSectionTitleInPosition(position);
-            viewHolder.setText(mSectionTitleId, sectionName);
+            String sectionTitle = getSectionTitleInPosition(position);
+            onSetSectionTitle(view, sectionTitle, viewHolder, position);
         }
         return view;
+    }
+
+    public void onSetSectionTitle(View sectionView, String sectionTitle, CommonAdapter.CommonViewHolder viewHolder, int position) {
+        viewHolder.setText(mSectionTitleId, sectionTitle);
     }
 
     private void initSections() {

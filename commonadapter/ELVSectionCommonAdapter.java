@@ -122,10 +122,14 @@ public abstract class ELVSectionCommonAdapter<T> extends BaseExpandableListAdapt
                 break;
         }
         if (viewHolder != null) {
-            String sectionName = getSectionTitleInPosition(groupPosition);
-            viewHolder.setText(mSectionTitleId, sectionName);
+            String sectionTitle = getSectionTitleInPosition(groupPosition);
+            onSetSectionTitle(view, sectionTitle, viewHolder, groupPosition);
         }
         return view;
+    }
+
+    public void onSetSectionTitle(View sectionView, String sectionTitle, CommonAdapter.CommonViewHolder viewHolder, int position) {
+        viewHolder.setText(mSectionTitleId, sectionTitle);
     }
 
     @Override
