@@ -1,6 +1,7 @@
 Common Adapter
 ==============
 Common Adapter aimed at simplifying the writing of Adapter,let you focus on the coding implementation of business.
+
 通用适配器旨在简化适配器的书写，让你专注于业务逻辑的实现。
 
 Include:
