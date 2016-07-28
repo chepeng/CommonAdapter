@@ -1,6 +1,8 @@
 package com.frank.commonadapter;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +60,40 @@ public class RVHeaderFooterAdapter<T> extends RecyclerView.Adapter<RVCommonAdapt
         int index;
         if ((index = getIndexInInnerAdapter(position)) != -1) {
             mAdapter.onBindViewHolder(holder, index);
+        }
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        mAdapter.onAttachedToRecyclerView(recyclerView);
+        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        if (layoutManager instanceof GridLayoutManager) {
+            final GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
+            GridLayoutManager.SpanSizeLookup spanSizeLookup = new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    if (getIndexInInnerAdapter(position) != -1) {
+                        return 1;
+                    } else {
+                        return gridLayoutManager.getSpanCount();
+                    }
+                }
+            };
+            gridLayoutManager.setSpanCount(gridLayoutManager.getSpanCount());
+        }
+    }
+
+    @Override
+    public void onViewAttachedToWindow(RVCommonAdapter.RVCommonViewHolder viewHolder) {
+        mAdapter.onViewAttachedToWindow(viewHolder);
+        int position = viewHolder.getLayoutPosition();
+        if (getIndexInHeader(position) != -1 || getIndexInFooter(position) != -1) {
+            ViewGroup.LayoutParams lp = viewHolder.itemView.getLayoutParams();
+            if (lp != null
+                    && lp instanceof StaggeredGridLayoutManager.LayoutParams) {
+                StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
+                p.setFullSpan(true);
+            }
         }
     }
 
