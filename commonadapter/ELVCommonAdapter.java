@@ -76,7 +76,6 @@ public abstract class ELVCommonAdapter<T> extends BaseExpandableListAdapter {
         CommonAdapter.CommonViewHolder viewHolder;
         if (convertView == null) {
             convertView = mInflater.inflate(mGroupLayoutId, parent, false);
-            //Log.e(TAG, "getGroupView inflate:" + groupPosition+"                          "+convertView);
             viewHolder = new CommonAdapter.CommonViewHolder(mGroupLayoutId, convertView, groupPosition);
             convertView.setTag(viewHolder);
         } else {
@@ -92,7 +91,6 @@ public abstract class ELVCommonAdapter<T> extends BaseExpandableListAdapter {
         CommonAdapter.CommonViewHolder viewHolder;
         if (convertView == null) {
             convertView = mInflater.inflate(mChildLayoutId, parent, false);
-            //Log.e(TAG, "getChildView inflate:" + groupPosition+"-"+childPosition+"                          "+convertView);
             viewHolder = new CommonAdapter.CommonViewHolder(mChildLayoutId, convertView, groupPosition);
             convertView.setTag(viewHolder);
         } else {

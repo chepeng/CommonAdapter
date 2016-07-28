@@ -16,7 +16,6 @@ public abstract class RVMultiTypeCommonAdapter<T> extends RVCommonAdapter<T> {
 
     @Override
     public RVCommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //Log.e(TAG,"onCreateViewHolder viewType:" + viewType);
         View v = mInflater.inflate(viewType, parent, false);
         RVCommonViewHolder vh = new RVCommonViewHolder(viewType, v);
         setListener(parent, viewType, v, vh);
@@ -25,7 +24,6 @@ public abstract class RVMultiTypeCommonAdapter<T> extends RVCommonAdapter<T> {
 
     @Override
     public int getItemViewType(int position) {
-        //Log.e(TAG,"getItemViewType position:" + position);
         return getLayoutId(position, mDataList.get(position));
     }
 

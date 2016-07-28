@@ -85,7 +85,6 @@ public abstract class SectionCommonAdapter<T> extends BaseAdapter {
         switch (itemViewType) {
             case TYPE_SECTION:
                 if (view == null) {
-                    //Log.e(TAG, "inflate position:" + position);
                     view = mInflater.inflate(mSectionLayoutId, parent, false);
                     viewHolder = new CommonAdapter.CommonViewHolder(mSectionLayoutId, view, position);
                     view.setTag(viewHolder);

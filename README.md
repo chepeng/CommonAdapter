@@ -15,6 +15,7 @@ Include:
  * RVCommonAdapter:---------------for `RecyclerView` that has only `one` type of item view.
  * RVMultiTypeCommonAdapter:----for `RecyclerView` that has `multiple` types of item view.
  * RVSectionCommonAdapter:-------for `RecyclerView` that has `segmented` item view.
+ * RVHeaderFooterAdapter:-------for `RecyclerView` that has `HeaderView` and/or `FooterView`.
 
 How do I use it?
 ----------------
