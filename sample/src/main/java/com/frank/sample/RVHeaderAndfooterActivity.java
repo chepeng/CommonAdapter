@@ -106,12 +106,12 @@ public class RVHeaderAndFooterActivity extends AppCompatActivity {
                     gameBean.setName("new" + count);
                     gameBean.setImg_url(String.valueOf(R.mipmap.ic_launcher));
                     gameBeanList.add(1, gameBean);
-                    mRVCommonAdapter.notifyItemInserted(1);
+                    mRVHeaderFooterAdapter.notifyDataSetChanged();
                     count++;
                     break;
                 case R.id.menu_delete:
                     gameBeanList.remove(2);
-                    mRVCommonAdapter.notifyItemRemoved(2);
+                    mRVHeaderFooterAdapter.notifyDataSetChanged();
                     break;
                 default:
                     break;
