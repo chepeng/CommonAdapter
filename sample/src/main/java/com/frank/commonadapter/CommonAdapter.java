@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * <p>通用适配器。封装了convertView复用及findViewById()，提供静态通用ViewHolder，
- * 只需实现{@link CommonAdapter#onBindViewHolder(CommonAdapter.CommonViewHolder, java.lang.Object)}方法<p/>
+ * 只需实现{@link CommonAdapter#onBindViewHolder(CommonViewHolder, Object)}方法<p/>
  */
 public abstract class CommonAdapter<T> extends BaseAdapter {
 
@@ -47,11 +47,11 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        //Log.e(TAG, "getView position:" + position);
+//        Log.e(TAG, "getView position:" + position);
         CommonViewHolder viewHolder;
         if (convertView == null) {
             convertView = mInflater.inflate(mLayoutId, parent, false);
-            //Log.e(TAG, "getView inflate:" + position+"                          "+convertView);
+//            Log.e(TAG, "getView inflate:" + position+"                          "+convertView);
             viewHolder = new CommonViewHolder(mLayoutId, convertView, position);
             convertView.setTag(viewHolder);
         } else {
@@ -104,7 +104,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
             View view = mViews.get(viewId);
             if (view == null) {
                 view = mConvertView.findViewById(viewId);
-                //Log.e(TAG, "findViewById:"+viewId+"                          "+view);
+//                Log.e(TAG, "findViewById:"+viewId+"                          "+view);
                 mViews.put(viewId, view);
             }
             return (T) view;
@@ -118,9 +118,19 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
             return mLayoutId;
         }
 
-        public CommonViewHolder setText(int viewId, String text) {
+        public View getItemView() {
+            return mConvertView;
+        }
+
+        public CommonViewHolder setText(int viewId, CharSequence text) {
             TextView tv = getView(viewId);
             tv.setText(text);
+            return this;
+        }
+
+        public CommonViewHolder setTextColor(int viewId, int color) {
+            TextView tv = getView(viewId);
+            tv.setTextColor(color);
             return this;
         }
 
@@ -129,7 +139,9 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
             view.setImageResource(resId);
             return this;
         }
-        //...
-        //新增其它通用方法...
+        // ...
+        // 可新增其它通用方法...
+
     }
+
 }

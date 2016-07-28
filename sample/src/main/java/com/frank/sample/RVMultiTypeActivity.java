@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.frank.commonadapter.DividerItemDecoration;
+import com.frank.commonadapter.DefaultDividerItemDecoration;
 import com.frank.commonadapter.R;
 import com.frank.commonadapter.RVCommonAdapter;
 import com.frank.commonadapter.RVMultiTypeCommonAdapter;
@@ -44,7 +44,7 @@ public class RVMultiTypeActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_1.setLayoutManager(linearLayoutManager);
-        rv_1.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        rv_1.addItemDecoration(new DefaultDividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         mRVMultiTypeCommonAdapter = new RVMultiTypeCommonAdapter<TimelineBean>(this, timelineBeanList) {
             @Override
             public int getLayoutId(int position, TimelineBean data) {

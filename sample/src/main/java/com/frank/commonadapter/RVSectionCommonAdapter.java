@@ -47,7 +47,6 @@ public abstract class RVSectionCommonAdapter<T> extends RecyclerView.Adapter<RVC
 
     @Override
     public int getItemViewType(int position) {
-        //Log.e(TAG, "getItemViewType position:" + position);
         int positionInCustomAdapter = getDataPosition(position);
         if (mSectionList.get(position) == null) {
             return mRecyclerViewAdapter.getItemViewType(positionInCustomAdapter) + 1;
@@ -58,7 +57,6 @@ public abstract class RVSectionCommonAdapter<T> extends RecyclerView.Adapter<RVC
 
     @Override
     public RVCommonAdapter.RVCommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //Log.e(TAG, "onCreateViewHolder viewType:" + viewType);
         RVCommonAdapter.RVCommonViewHolder vh;
         switch (viewType) {
             case TYPE_SECTION:
@@ -74,7 +72,6 @@ public abstract class RVSectionCommonAdapter<T> extends RecyclerView.Adapter<RVC
 
     @Override
     public void onBindViewHolder(RVCommonAdapter.RVCommonViewHolder holder, int position) {
-        //Log.e(TAG, "onBindViewHolder position:" + position);
         String sectionTitle = mSectionList.get(position);
         if (sectionTitle != null) {
             onSetSectionTitle(holder.itemView, sectionTitle, holder, position);

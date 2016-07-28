@@ -101,6 +101,10 @@ public class MainActivity extends AppCompatActivity {
                     intent = new Intent(MainActivity.this, RVSectionActivity.class);
                     MainActivity.this.startActivity(intent);
                     break;
+                case R.id.menu_header_and_footer_recyclerview:
+                    intent = new Intent(MainActivity.this, RVHeaderAndFooterActivity.class);
+                    MainActivity.this.startActivity(intent);
+                    break;
                 default:
                     break;
             }

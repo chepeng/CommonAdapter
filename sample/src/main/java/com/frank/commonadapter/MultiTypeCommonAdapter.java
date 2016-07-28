@@ -53,7 +53,6 @@ public abstract class MultiTypeCommonAdapter<T> extends CommonAdapter<T> {
         int layoutId = getLayoutId(position, getItem(position));
         CommonViewHolder viewHolder;
         if (convertView == null) {
-            //Log.e(TAG, "getView->inflate:" + position);
             convertView = mInflater.inflate(layoutId, parent, false);
             viewHolder = new CommonViewHolder(layoutId, convertView, position);
             convertView.setTag(viewHolder);

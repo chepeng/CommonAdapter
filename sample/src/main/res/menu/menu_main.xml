@@ -43,4 +43,10 @@
         android:showAsAction="ifRoom"
         android:title="@string/RVSectionCommonAdapter"
         tools:ignore="AppCompatResource" />
+    <item
+        android:id="@+id/menu_header_and_footer_recyclerview"
+        android:icon="@android:drawable/ic_dialog_alert"
+        android:showAsAction="ifRoom"
+        android:title="@string/RVHeaderAndFooterAdapter"
+        tools:ignore="AppCompatResource" />
 </menu>

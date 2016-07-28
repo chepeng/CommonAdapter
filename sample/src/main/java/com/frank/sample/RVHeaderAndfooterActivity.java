@@ -9,27 +9,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.frank.commonadapter.DefaultDividerItemDecoration;
 import com.frank.commonadapter.R;
 import com.frank.commonadapter.RVCommonAdapter;
-import com.frank.commonadapter.RVSectionCommonAdapter;
+import com.frank.commonadapter.RVHeaderFooterAdapter;
 import com.frank.sample.bean.GameBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RVSectionActivity extends AppCompatActivity {
+public class RVHeaderAndFooterActivity extends AppCompatActivity {
 
     RecyclerView rv_1;
     List<GameBean> gameBeanList = new ArrayList<>();
     RVCommonAdapter<GameBean> mRVCommonAdapter;
-    RVSectionCommonAdapter<GameBean> mSectionCommonAdapter;
+    RVHeaderFooterAdapter<GameBean> mRVHeaderFooterAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rvsection);
+        setContentView(R.layout.activity_rvheader_and_footer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getTitle());
         setSupportActionBar(toolbar);
@@ -56,32 +58,35 @@ public class RVSectionActivity extends AppCompatActivity {
         mRVCommonAdapter.setOnItemClickListener(new RVCommonAdapter.OnItemClickListener<GameBean>() {
             @Override
             public void onItemClick(ViewGroup parent, View view, int position) {
-                int dataPosition = mSectionCommonAdapter.getDataPosition(position);
-                Toast.makeText(RVSectionActivity.this,""+dataPosition+","+gameBeanList.get(dataPosition).getName(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(RVHeaderAndFooterActivity.this, "" + mRVHeaderFooterAdapter.getIndexInInnerAdapter(position), Toast.LENGTH_SHORT).show();
             }
         });
-        mSectionCommonAdapter = new RVSectionCommonAdapter<GameBean>(this, mRVCommonAdapter, R.layout.listitem_section, R.id.tv_section) {
+        mRVHeaderFooterAdapter = new RVHeaderFooterAdapter<>(mRVCommonAdapter);
+        View header1 = getLayoutInflater().inflate(R.layout.listitem_game, rv_1, false);
+        View header2 = getLayoutInflater().inflate(R.layout.item_star_header, rv_1, false);
+        View header3 = getLayoutInflater().inflate(R.layout.listitem_video, rv_1, false);
+        Button btn_clickable = (Button) header2.findViewById(R.id.btn_clickable);
+        btn_clickable.setOnClickListener(new View.OnClickListener() {
             @Override
-            public String getSectionTitle(GameBean data) {
-                if (data.getName().startsWith("game1")) {
-                    return "section 1";
-                } else {
-                    return "section";
-                }
+            public void onClick(View v) {
+                mRVHeaderFooterAdapter.removeHeaderView(R.layout.listitem_video);
             }
-        };
-        rv_1.setAdapter(mSectionCommonAdapter);
+        });
+        mRVHeaderFooterAdapter.addHeaderView(R.layout.listitem_game, header1);
+        mRVHeaderFooterAdapter.addHeaderView(R.layout.item_star_header, header2);
+        mRVHeaderFooterAdapter.addHeaderView(R.layout.listitem_video, header3);
+        rv_1.setAdapter(mRVHeaderFooterAdapter);
         getData();
     }
 
     private void getData() {
-        for (int i = 10; i < 40; i++) {
+        for (int i = 0; i < 20; i++) {
             GameBean gameBean = new GameBean();
             gameBean.setName("game" + i);
             gameBean.setImg_url(String.valueOf(android.R.drawable.presence_audio_online));
             gameBeanList.add(gameBean);
         }
-        mSectionCommonAdapter.notifyDataSetChanged();
+        mRVHeaderFooterAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -92,6 +97,7 @@ public class RVSectionActivity extends AppCompatActivity {
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         int count = 0;
+
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
@@ -100,12 +106,12 @@ public class RVSectionActivity extends AppCompatActivity {
                     gameBean.setName("new" + count);
                     gameBean.setImg_url(String.valueOf(R.mipmap.ic_launcher));
                     gameBeanList.add(1, gameBean);
-                    mSectionCommonAdapter.notifyDataSetChanged();
+                    mRVCommonAdapter.notifyItemInserted(1);
                     count++;
                     break;
                 case R.id.menu_delete:
                     gameBeanList.remove(2);
-                    mSectionCommonAdapter.notifyDataSetChanged();
+                    mRVCommonAdapter.notifyItemRemoved(2);
                     break;
                 default:
                     break;
@@ -113,5 +119,4 @@ public class RVSectionActivity extends AppCompatActivity {
             return true;
         }
     };
-
 }

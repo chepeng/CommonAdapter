@@ -11,6 +11,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
+/**
+ * <p>{@link android.support.v7.widget.RecyclerView}的通用适配器。封装了
+ * {@link android.support.v7.widget.RecyclerView.Adapter#onCreateViewHolder(ViewGroup, int)}及
+ * {@link android.support.v7.widget.RecyclerView.Adapter#onBindViewHolder(RecyclerView.ViewHolder, int)}
+ * 方法，提供静态通用的{@link RVCommonAdapter.RVCommonViewHolder}以及
+ * {@link RVCommonAdapter.OnItemClickListener},{@link RVCommonAdapter.OnItemLongClickListener}接口
+ *
+ * @param <T> 实体类泛型
+ */
 public abstract class RVCommonAdapter<T> extends RecyclerView.Adapter<RVCommonAdapter.RVCommonViewHolder> {
 
     private static final String TAG = "RVCommonAdapter";
@@ -40,7 +49,6 @@ public abstract class RVCommonAdapter<T> extends RecyclerView.Adapter<RVCommonAd
      */
     @Override
     public RVCommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //Log.e(TAG,"onCreateViewHolder viewType:" + viewType);
         View v = mInflater.inflate(mLayoutId, parent, false);
         RVCommonViewHolder vh = new RVCommonViewHolder(mLayoutId, v);
         setListener(parent, viewType, v, vh);
@@ -63,7 +71,6 @@ public abstract class RVCommonAdapter<T> extends RecyclerView.Adapter<RVCommonAd
      */
     @Override
     public void onBindViewHolder(RVCommonViewHolder holder, int position) {
-        //Log.e(TAG,"onBindViewHolder position:" + position);
         onBindViewHolder(holder, mDataList.get(position));
     }
 
@@ -168,13 +175,20 @@ public abstract class RVCommonAdapter<T> extends RecyclerView.Adapter<RVCommonAd
             return this;
         }
 
+        public RVCommonViewHolder setTextColor(int viewId, int color) {
+            TextView tv = getView(viewId);
+            tv.setTextColor(color);
+            return this;
+        }
+
         public RVCommonViewHolder setImageResource(int viewId, int resId) {
             ImageView view = getView(viewId);
             view.setImageResource(resId);
             return this;
         }
-        //...
-        //新增其它通用方法...
+        // ...
+        // 可新增其它通用方法...
+
     }
 
 }

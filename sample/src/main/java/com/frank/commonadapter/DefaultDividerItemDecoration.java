@@ -9,13 +9,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-public class DividerItemDecoration extends RecyclerView.ItemDecoration {
+public class DefaultDividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
     private Drawable mDivider;
     private int mOrientation = LinearLayoutManager.VERTICAL;
 
-    public DividerItemDecoration(Context context, int orientation) {
+    public DefaultDividerItemDecoration(Context context, int orientation) {
         if (orientation != LinearLayoutManager.VERTICAL && orientation != LinearLayoutManager.HORIZONTAL) {
             throw new IllegalArgumentException("invalid orientation");
         }
