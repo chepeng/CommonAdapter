@@ -3,7 +3,7 @@ package com.frank.sample.adapter;
 import android.content.Context;
 
 import com.frank.commonadapter.MultiTypeCommonAdapter;
-import com.frank.commonadapter.R;
+import com.frank.sample.R;
 import com.frank.sample.bean.TimelineBean;
 
 import java.util.List;

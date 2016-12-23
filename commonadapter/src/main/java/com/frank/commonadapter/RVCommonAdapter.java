@@ -15,8 +15,8 @@ import java.util.List;
  * <p>{@link android.support.v7.widget.RecyclerView}的通用适配器。封装了
  * {@link android.support.v7.widget.RecyclerView.Adapter#onCreateViewHolder(ViewGroup, int)}及
  * {@link android.support.v7.widget.RecyclerView.Adapter#onBindViewHolder(RecyclerView.ViewHolder, int)}
- * 方法，提供静态通用的{@link RVCommonAdapter.RVCommonViewHolder}以及
- * {@link RVCommonAdapter.OnItemClickListener},{@link RVCommonAdapter.OnItemLongClickListener}接口
+ * 方法，提供静态通用的{@link RVCommonViewHolder}以及
+ * {@link OnItemClickListener},{@link OnItemLongClickListener}接口
  *
  * @param <T> 实体类泛型
  */

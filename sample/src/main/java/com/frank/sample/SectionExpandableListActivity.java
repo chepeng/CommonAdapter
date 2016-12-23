@@ -8,7 +8,6 @@ import android.widget.ExpandableListView;
 
 import com.frank.commonadapter.CommonAdapter;
 import com.frank.commonadapter.ELVCommonAdapter;
-import com.frank.commonadapter.R;
 import com.frank.commonadapter.ELVSectionCommonAdapter;
 import com.frank.sample.bean.GameBean;
 import com.frank.sample.bean.GameTypeBean;
@@ -22,6 +21,7 @@ public class SectionExpandableListActivity extends AppCompatActivity {
     private List<GameTypeBean> gameTypeBeanList = new ArrayList<>();
     private ELVCommonAdapter mExpandableListCommonAdapter;
     private ELVSectionCommonAdapter mSectionExpandableListAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

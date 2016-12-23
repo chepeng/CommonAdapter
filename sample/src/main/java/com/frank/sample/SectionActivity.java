@@ -9,7 +9,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.frank.commonadapter.MultiTypeCommonAdapter;
-import com.frank.commonadapter.R;
 import com.frank.commonadapter.SectionCommonAdapter;
 import com.frank.sample.adapter.MultiTypeAdapter;
 import com.frank.sample.bean.GameBean;
@@ -46,7 +45,7 @@ public class SectionActivity extends AppCompatActivity {
             public String getSectionTitle(TimelineBean data) {
                 if (TimelineBean.TYPE_GAME.equals(data.getEventType())) {
                     return "All Game";
-                } else{
+                } else {
                     return "All Video";
                 }
             }
@@ -56,7 +55,7 @@ public class SectionActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int dataPosition = mSectionCommonAdapter.getDataPosition(position);
-                Toast.makeText(SectionActivity.this,""+dataPosition,Toast.LENGTH_SHORT).show();
+                Toast.makeText(SectionActivity.this, "" + dataPosition, Toast.LENGTH_SHORT).show();
             }
         });
         getData();

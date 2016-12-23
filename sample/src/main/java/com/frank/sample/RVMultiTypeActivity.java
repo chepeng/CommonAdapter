@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.frank.commonadapter.DefaultDividerItemDecoration;
-import com.frank.commonadapter.R;
 import com.frank.commonadapter.RVCommonAdapter;
 import com.frank.commonadapter.RVMultiTypeCommonAdapter;
 import com.frank.sample.bean.GameBean;
@@ -75,7 +74,7 @@ public class RVMultiTypeActivity extends AppCompatActivity {
         mRVMultiTypeCommonAdapter.setOnItemClickListener(new RVCommonAdapter.OnItemClickListener<TimelineBean>() {
             @Override
             public void onItemClick(ViewGroup parent, View view, int position) {
-                Toast.makeText(RVMultiTypeActivity.this,""+position,Toast.LENGTH_SHORT).show();
+                Toast.makeText(RVMultiTypeActivity.this, "" + position, Toast.LENGTH_SHORT).show();
             }
         });
         rv_1.setAdapter(mRVMultiTypeCommonAdapter);

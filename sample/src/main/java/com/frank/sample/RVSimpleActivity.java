@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.frank.commonadapter.DefaultDividerItemDecoration;
-import com.frank.commonadapter.R;
 import com.frank.commonadapter.RVCommonAdapter;
 import com.frank.sample.bean.GameBean;
 
@@ -55,7 +54,7 @@ public class RVSimpleActivity extends AppCompatActivity {
         mRVCommonAdapter.setOnItemClickListener(new RVCommonAdapter.OnItemClickListener<GameBean>() {
             @Override
             public void onItemClick(ViewGroup parent, View view, int position) {
-                Toast.makeText(RVSimpleActivity.this,""+position,Toast.LENGTH_SHORT).show();
+                Toast.makeText(RVSimpleActivity.this, "" + position, Toast.LENGTH_SHORT).show();
             }
         });
         rv_1.setAdapter(mRVCommonAdapter);
@@ -80,6 +79,7 @@ public class RVSimpleActivity extends AppCompatActivity {
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         int count = 0;
+
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {

@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.frank.commonadapter.NonRecyclableCommonAdapter;
-import com.frank.commonadapter.R;
 import com.frank.sample.bean.GameBean;
 
 import java.util.ArrayList;
@@ -52,7 +51,7 @@ public class NonRecyclableActivity extends AppCompatActivity {
     }
 
     private void getData() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 10; i++) {
             GameBean gameBean = new GameBean();
             gameBean.setName("game" + i);
             gameBean.setImg_url(String.valueOf(android.R.drawable.presence_audio_online));

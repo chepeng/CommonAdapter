@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.frank.commonadapter.CommonAdapter;
 import com.frank.commonadapter.ELVCommonAdapter;
-import com.frank.commonadapter.R;
 import com.frank.sample.bean.GameBean;
 import com.frank.sample.bean.GameTypeBean;
 import com.frank.sample.widget.ExpandedGridView;

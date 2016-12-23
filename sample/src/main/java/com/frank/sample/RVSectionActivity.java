@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.frank.commonadapter.DefaultDividerItemDecoration;
-import com.frank.commonadapter.R;
 import com.frank.commonadapter.RVCommonAdapter;
 import com.frank.commonadapter.RVSectionCommonAdapter;
 import com.frank.sample.bean.GameBean;
@@ -26,6 +25,7 @@ public class RVSectionActivity extends AppCompatActivity {
     List<GameBean> gameBeanList = new ArrayList<>();
     RVCommonAdapter<GameBean> mRVCommonAdapter;
     RVSectionCommonAdapter<GameBean> mSectionCommonAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +57,7 @@ public class RVSectionActivity extends AppCompatActivity {
             @Override
             public void onItemClick(ViewGroup parent, View view, int position) {
                 int dataPosition = mSectionCommonAdapter.getDataPosition(position);
-                Toast.makeText(RVSectionActivity.this,""+dataPosition+","+gameBeanList.get(dataPosition).getName(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(RVSectionActivity.this, "" + dataPosition + "," + gameBeanList.get(dataPosition).getName(), Toast.LENGTH_SHORT).show();
             }
         });
         mSectionCommonAdapter = new RVSectionCommonAdapter<GameBean>(this, mRVCommonAdapter, R.layout.listitem_section, R.id.tv_section) {
@@ -92,6 +92,7 @@ public class RVSectionActivity extends AppCompatActivity {
 
     private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
         int count = 0;
+
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {

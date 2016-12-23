@@ -9,7 +9,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.frank.commonadapter.MultiTypeCommonAdapter;
-import com.frank.commonadapter.R;
 import com.frank.sample.adapter.MultiTypeAdapter;
 import com.frank.sample.bean.GameBean;
 import com.frank.sample.bean.TimelineBean;
@@ -43,7 +42,7 @@ public class MultiTypeActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MultiTypeActivity.this,""+position,Toast.LENGTH_SHORT).show();
+                Toast.makeText(MultiTypeActivity.this, "" + position, Toast.LENGTH_SHORT).show();
             }
         });
         getData();
