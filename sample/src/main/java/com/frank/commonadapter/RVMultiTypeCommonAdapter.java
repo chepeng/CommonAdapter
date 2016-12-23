@@ -8,8 +8,6 @@ import java.util.List;
 
 public abstract class RVMultiTypeCommonAdapter<T> extends RVCommonAdapter<T> {
 
-    private static final String TAG = "RVMultiTypeAdapter";
-
     public RVMultiTypeCommonAdapter(Context context, List<T> dataList) {
         super(context, dataList, -1);
     }

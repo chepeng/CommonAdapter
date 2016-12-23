@@ -18,11 +18,9 @@ import java.util.List;
  */
 public abstract class CommonAdapter<T> extends BaseAdapter {
 
-    private static final String TAG = "CommonAdapter";
-
-    protected List<T> mDataList;
-    protected LayoutInflater mInflater;
-    private int mLayoutId;
+    List<T> mDataList;
+    LayoutInflater mInflater;
+    int mLayoutId;
 
     public CommonAdapter(Context context, List<T> dataList, int layoutId) {
         this.mDataList = dataList;
@@ -47,11 +45,9 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-//        Log.e(TAG, "getView position:" + position);
         CommonViewHolder viewHolder;
         if (convertView == null) {
             convertView = mInflater.inflate(mLayoutId, parent, false);
-//            Log.e(TAG, "getView inflate:" + position+"                          "+convertView);
             viewHolder = new CommonViewHolder(mLayoutId, convertView, position);
             convertView.setTag(viewHolder);
         } else {
@@ -89,7 +85,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 
         private int mLayoutId;
         private View mConvertView;
-        public int mPosition;
+        private int mPosition;
         private SparseArray<View> mViews;
 
         public CommonViewHolder(int layoutId, View convertView,
@@ -104,10 +100,13 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
             View view = mViews.get(viewId);
             if (view == null) {
                 view = mConvertView.findViewById(viewId);
-//                Log.e(TAG, "findViewById:"+viewId+"                          "+view);
                 mViews.put(viewId, view);
             }
             return (T) view;
+        }
+
+        public void setPosition(int position) {
+            this.mPosition = position;
         }
 
         public int getPosition() {

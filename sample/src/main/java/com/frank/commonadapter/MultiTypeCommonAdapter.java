@@ -29,8 +29,6 @@ import java.util.List;
  */
 public abstract class MultiTypeCommonAdapter<T> extends CommonAdapter<T> {
 
-    private static final String TAG = "MultiTypeCommonAdapter";
-
     public MultiTypeCommonAdapter(Context context, List<T> dataList) {
         super(context, dataList, -1);
     }
@@ -58,7 +56,7 @@ public abstract class MultiTypeCommonAdapter<T> extends CommonAdapter<T> {
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (CommonViewHolder) convertView.getTag();
-            viewHolder.mPosition = position;
+            viewHolder.setPosition(position);
         }
         onBindViewHolder(viewHolder, getItem(position));
         return convertView;
@@ -66,23 +64,26 @@ public abstract class MultiTypeCommonAdapter<T> extends CommonAdapter<T> {
 
     /**
      * 返回布局类型个数
+     *
      * @return 布局类型个数
      */
     public abstract int getItemViewTypeCount();
 
     /**
      * 返回[0,getItemViewTypeCount()-1]的整数(由layoutId或position决定具体返回值）
+     *
      * @param layoutId 当前布局id
      * @param position position
-     * @param data 当前位置数据实体
-     * @return [0,getItemViewTypeCount()-1]的整数
+     * @param data     当前位置数据实体
+     * @return [0, getItemViewTypeCount()-1]的整数
      */
     public abstract int getItemViewType(int layoutId, int position, T data);
 
     /**
      * 返回布局文件id(由position或data.getType()决定具体返回值）
+     *
      * @param position position
-     * @param data 数据实体
+     * @param data     数据实体
      * @return 布局文件id
      */
     public abstract int getLayoutId(int position, T data);

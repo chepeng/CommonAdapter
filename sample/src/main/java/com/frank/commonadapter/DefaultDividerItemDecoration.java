@@ -84,8 +84,6 @@ public class DefaultDividerItemDecoration extends RecyclerView.ItemDecoration {
      */
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        //int itemPosition = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
-        //int dataSize = parent.getAdapter().getItemCount();
         if (mOrientation == LinearLayoutManager.VERTICAL) {
             outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
         } else {

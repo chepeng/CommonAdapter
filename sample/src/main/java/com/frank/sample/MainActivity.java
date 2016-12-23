@@ -105,6 +105,10 @@ public class MainActivity extends AppCompatActivity {
                     intent = new Intent(MainActivity.this, RVHeaderAndFooterActivity.class);
                     MainActivity.this.startActivity(intent);
                     break;
+                case R.id.menu_non_recyclable:
+                    intent = new Intent(MainActivity.this, NonRecyclableActivity.class);
+                    MainActivity.this.startActivity(intent);
+                    break;
                 default:
                     break;
             }

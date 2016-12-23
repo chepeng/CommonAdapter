@@ -11,4 +11,5 @@
     <string name="RVMultiTypeCommonAdapter">RVMultiTypeCommonAdapter</string>
     <string name="RVSectionCommonAdapter">RVSectionCommonAdapter</string>
     <string name="RVHeaderAndFooterAdapter">RVHeaderAndFooterAdapter</string>
+    <string name="NonRecyclableCommonAdapter">NonRecyclableCommonAdapter</string>
 </resources>

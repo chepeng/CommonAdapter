@@ -38,8 +38,12 @@
         <activity
             android:name="com.frank.sample.RVSectionActivity"
             android:label="@string/RVSectionCommonAdapter" />
-        <activity android:name="com.frank.sample.RVHeaderAndFooterActivity"
+        <activity
+            android:name="com.frank.sample.RVHeaderAndFooterActivity"
             android:label="@string/RVHeaderAndFooterAdapter" />
+        <activity
+            android:name="com.frank.sample.NonRecyclableActivity"
+            android:label="@string/NonRecyclableCommonAdapter" />
     </application>
 
 </manifest>

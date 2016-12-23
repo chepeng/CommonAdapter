@@ -9,8 +9,6 @@ import android.widget.BaseExpandableListAdapter;
 
 public abstract class ELVSectionCommonAdapter<T> extends BaseExpandableListAdapter {
 
-    private static final String TAG = "ELVSectionCommonAdapter";
-
     private static final int TYPE_SECTION = 0;
 
     private SparseArray<String> mSectionList;
@@ -114,7 +112,7 @@ public abstract class ELVSectionCommonAdapter<T> extends BaseExpandableListAdapt
                     view.setTag(viewHolder);
                 } else {
                     viewHolder = (CommonAdapter.CommonViewHolder) view.getTag();
-                    viewHolder.mPosition = groupPosition;
+                    viewHolder.setPosition(groupPosition);
                 }
                 break;
             default:
@@ -141,17 +139,17 @@ public abstract class ELVSectionCommonAdapter<T> extends BaseExpandableListAdapt
         int n = mExpandableListAdapter.getGroupCount();
         int nSections = 0;
         mSectionList.clear();
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             String sectionName = getSectionTitle((T) mExpandableListAdapter.getGroup(i));
             int j;
-            for (j = 0; j < mSectionList.size(); j ++) {
+            for (j = 0; j < mSectionList.size(); j++) {
                 String section = mSectionList.valueAt(j);
                 if (section != null && section.equals(sectionName)) {
                     break;
                 }
             }
             if (j >= mSectionList.size()) {
-                mSectionList.put(i+nSections, sectionName);
+                mSectionList.put(i + nSections, sectionName);
                 nSections++;
             }
         }
@@ -159,7 +157,7 @@ public abstract class ELVSectionCommonAdapter<T> extends BaseExpandableListAdapt
 
     public int getDataPosition(int position) {
         int nSections = 0;
-        for (int j = 0; j < mSectionList.size(); j ++) {
+        for (int j = 0; j < mSectionList.size(); j++) {
             int key = mSectionList.keyAt(j);
             if (key < position) {
                 nSections++;

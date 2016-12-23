@@ -12,8 +12,6 @@ import java.util.List;
 
 public class RVHeaderFooterAdapter<T> extends RecyclerView.Adapter<RVCommonAdapter.RVCommonViewHolder> {
 
-    private static final String TAG = "RVHeaderFooterAdapter";
-
     private SparseArray<View> mHeaderViewInfos = new SparseArray<>();//key:layoutId/viewType, value:layoutView
     private SparseArray<View> mFooterViewInfos = new SparseArray<>();
     private List<Integer> mHeaderViewOrder = new ArrayList<>();
@@ -79,7 +77,7 @@ public class RVHeaderFooterAdapter<T> extends RecyclerView.Adapter<RVCommonAdapt
                     }
                 }
             };
-            gridLayoutManager.setSpanCount(gridLayoutManager.getSpanCount());
+            gridLayoutManager.setSpanSizeLookup(spanSizeLookup);
         }
     }
 

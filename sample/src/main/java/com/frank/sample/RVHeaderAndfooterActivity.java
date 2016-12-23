@@ -2,6 +2,7 @@ package com.frank.sample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -44,9 +45,8 @@ public class RVHeaderAndFooterActivity extends AppCompatActivity {
         });
 
         rv_1 = (RecyclerView) findViewById(R.id.rv_1);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rv_1.setLayoutManager(linearLayoutManager);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        rv_1.setLayoutManager(gridLayoutManager);
         rv_1.addItemDecoration(new DefaultDividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         mRVCommonAdapter = new RVCommonAdapter<GameBean>(this, gameBeanList, R.layout.listitem_game) {
             @Override

@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 
 public abstract class RVSectionCommonAdapter<T> extends RecyclerView.Adapter<RVCommonAdapter.RVCommonViewHolder> {
 
-    private static final String TAG = "RVSectionCommonAdapter";
-
     private static final int TYPE_SECTION = 0;
 
     private SparseArray<String> mSectionList;

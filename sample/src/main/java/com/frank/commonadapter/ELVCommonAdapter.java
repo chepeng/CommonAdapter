@@ -18,11 +18,10 @@ import java.util.List;
  * <li>{@link ELVCommonAdapter#getChild(int, int, Object)}</li>
  * </ol>
  * </p>
+ *
  * @param <T>
  */
 public abstract class ELVCommonAdapter<T> extends BaseExpandableListAdapter {
-
-    private static final String TAG = "ELVCommonAdapter";
 
     private List<T> mDataList;
     private LayoutInflater mInflater;
@@ -80,7 +79,7 @@ public abstract class ELVCommonAdapter<T> extends BaseExpandableListAdapter {
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (CommonAdapter.CommonViewHolder) convertView.getTag();
-            viewHolder.mPosition = groupPosition;
+            viewHolder.setPosition(groupPosition);
         }
         onBindGroupViewHolder(groupPosition, viewHolder, getGroup(groupPosition));
         return convertView;
@@ -95,7 +94,7 @@ public abstract class ELVCommonAdapter<T> extends BaseExpandableListAdapter {
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (CommonAdapter.CommonViewHolder) convertView.getTag();
-            viewHolder.mPosition = childPosition;
+            viewHolder.setPosition(childPosition);
         }
         onBindChildViewHolder(groupPosition, childPosition, viewHolder, getGroup(groupPosition));
         return convertView;
@@ -108,34 +107,38 @@ public abstract class ELVCommonAdapter<T> extends BaseExpandableListAdapter {
 
     /**
      * 绑定Group项的ViewHolder
+     *
      * @param groupPosition 当前组的position
-     * @param viewHolder ViewHolder
-     * @param groupData 所在组的数据实体
+     * @param viewHolder    ViewHolder
+     * @param groupData     所在组的数据实体
      */
     public abstract void onBindGroupViewHolder(int groupPosition, CommonAdapter.CommonViewHolder viewHolder, T groupData);
 
     /**
      * 绑定子项的ViewHolder
+     *
      * @param groupPosition 所在组的position
      * @param childPosition 当前子项的position
-     * @param viewHolder ViewHolder
-     * @param groupData 所在组的数据实体
+     * @param viewHolder    ViewHolder
+     * @param groupData     所在组的数据实体
      */
     public abstract void onBindChildViewHolder(int groupPosition, int childPosition, CommonAdapter.CommonViewHolder viewHolder, T groupData);
 
     /**
      * 返回groupPosition组的子项数量
+     *
      * @param groupPosition 组的position
-     * @param groupData 所在组的数据实体
+     * @param groupData     所在组的数据实体
      * @return groupPosition组的子项数量
      */
     public abstract int getChildrenCount(int groupPosition, T groupData);
 
     /**
      * 建议正确实现该方法，返回该子项的数据实体
+     *
      * @param groupPosition 所在组的position
      * @param childPosition 该子项的position
-     * @param groupData 所在组的数据实体
+     * @param groupData     所在组的数据实体
      * @return 该子项的数据实体
      */
     public abstract Object getChild(int groupPosition, int childPosition, T groupData);

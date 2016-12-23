@@ -49,4 +49,10 @@
         android:showAsAction="ifRoom"
         android:title="@string/RVHeaderAndFooterAdapter"
         tools:ignore="AppCompatResource" />
+    <item
+        android:id="@+id/menu_non_recyclable"
+        android:icon="@android:drawable/ic_dialog_alert"
+        android:showAsAction="ifRoom"
+        android:title="@string/NonRecyclableCommonAdapter"
+        tools:ignore="AppCompatResource" />
 </menu>
