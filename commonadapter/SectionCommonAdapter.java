@@ -9,8 +9,6 @@ import android.widget.BaseAdapter;
 
 public abstract class SectionCommonAdapter<T> extends BaseAdapter {
 
-    private static final String TAG = "SectionCommonAdapter";
-
     private static final int TYPE_SECTION = 0;
 
     private SparseArray<String> mSectionList;
@@ -90,7 +88,7 @@ public abstract class SectionCommonAdapter<T> extends BaseAdapter {
                     view.setTag(viewHolder);
                 } else {
                     viewHolder = (CommonAdapter.CommonViewHolder) view.getTag();
-                    viewHolder.mPosition = position;
+                    viewHolder.setPosition(position);
                 }
                 break;
             default:

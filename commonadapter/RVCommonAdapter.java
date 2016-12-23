@@ -22,13 +22,11 @@ import java.util.List;
  */
 public abstract class RVCommonAdapter<T> extends RecyclerView.Adapter<RVCommonAdapter.RVCommonViewHolder> {
 
-    private static final String TAG = "RVCommonAdapter";
-
-    protected List<T> mDataList;
-    protected LayoutInflater mInflater;
-    protected int mLayoutId;
-    protected OnItemClickListener mOnItemClickListener;
-    protected OnItemLongClickListener mOnItemLongClickListener;
+    List<T> mDataList;
+    LayoutInflater mInflater;
+    private int mLayoutId;
+    private OnItemClickListener mOnItemClickListener;
+    private OnItemLongClickListener mOnItemLongClickListener;
 
     public RVCommonAdapter(Context context, List<T> dataList, int layoutId) {
         this.mInflater = LayoutInflater.from(context);
